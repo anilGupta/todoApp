@@ -1,7 +1,8 @@
-export const baseUrl = 'http://0.0.0.0:3000/api/';
+export const baseUrl = 'http://localhost:3000/api';
 
 const urls = {
-   todos	: `${baseUrl}todos`,
+   todos	: `${baseUrl}/todos`,
+   login	: `${baseUrl}/Users/login`,
 };
 
 export default urls;
