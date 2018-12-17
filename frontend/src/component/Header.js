@@ -7,7 +7,7 @@ class Header extends React.Component {
   render() {
     return (
       <div className="header-bar">
-        <header>Hello</header>
+        <header>TodoApp</header>
       </div>
     );
   }

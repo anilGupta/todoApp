@@ -4,13 +4,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { initialize, logout } from '../actions/auth';
 
-
-
+import { SignIn, Home}  from './'
+import { Header, Footer }  from '../component'
 
 const AuthRoute = ({ component: Component, ...rest, authenticated, open }) => (
   <Route {...rest} render={props => {
     const from = props.location.pathname;
-    if(from  == '/login'){
+    if(from  === '/login'){
        return authenticated ? <Redirect to={{  pathname: '/',  state: { from: props.location }}}/> : <Component {...props}/>
     }else{
        return authenticated ? <Component {...props}/> : <Redirect to={{ pathname: '/login', state: { from: props.location } }}/>

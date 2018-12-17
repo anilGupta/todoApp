@@ -31,8 +31,10 @@ const
     	checkAuth =  ({username, password})  =>{
         	return dispatch => {
             	const body = { username, password };
-            	return network.post(urls.auth, body).then(result => {
-                	const auth = result.token ? result.token: false,
+            	return network.post(urls.login, body).then(result => {
+            	    console.log("result", result)
+
+                	const auth = result.id ? result.id: false,
                       	 user = auth ? { profile : result.user, token:result.token }: {};
                          Storage.set("auth", auth);
 				                 Storage.set("user", auth ? {token : result.token }: {});
