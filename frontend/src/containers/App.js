@@ -3,17 +3,18 @@ import { Route, Switch, Redirect  } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { initialize, logout } from '../actions/auth';
+import Wrapper from '../component/styles/Wrapper'
 
-import { SignIn, Todo}  from './'
+import { SignIn, SignUp, Todo}  from './'
 import { Header, Footer }  from '../component'
 
 const AuthRoute = ({ component: Component, ...rest, authenticated, open }) => (
   <Route {...rest} render={props => {
     const from = props.location.pathname;
-    if(from  === '/login'){
+    if(from  === '/login' || from  === '/signup'){
        return authenticated ? <Redirect to={{  pathname: '/',  state: { from: props.location }}}/> : <Component {...props}/>
     }else{
-       return authenticated ? <Component {...props}/> : <Redirect to={{ pathname: '/login', state: { from: props.location } }}/>
+       return authenticated ? <Component {...props}/> : <Redirect to={{ pathname: from, state: { from: props.location } }}/>
     }
   }}/>
 );
@@ -34,23 +35,22 @@ class App extends Component{
 
 
     render(){
-        const {auth: {authenticated, user}, logout } = this.props;
+        const {auth: {authenticated, token, user=false}, logout } = this.props;
         if(authenticated == null){
             return null
         }
 
         return (
-          <div className="container-fluid">
-            <div className="page">
-              { authenticated ? <Header logout={logout} user={user} />: null }
-              <div className="pageContent">
-                <Switch>
-                  <AuthRoute path="/login" component={SignIn} authenticated={authenticated} />
-                  <AuthRoute exact path="/" component={Todo} authenticated={authenticated} />
-                </Switch>
-              </div>
-              <Footer />
-            </div>
+          <div>
+            <Header logout={logout} user={token ? user: false} />
+            <Wrapper>
+              <Switch>
+                <AuthRoute path="/login" component={SignIn} authenticated={authenticated} />
+                <AuthRoute path="/signup" component={SignUp} authenticated={authenticated} />
+                <AuthRoute exact path="/" component={Todo} authenticated={authenticated} />
+              </Switch>
+            </Wrapper>
+            <Footer />
           </div>
         );
 

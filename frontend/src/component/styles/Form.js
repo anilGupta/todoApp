@@ -20,9 +20,20 @@ const Form = styled.form`
   font-size: 1.5rem;
   line-height: 1.5;
   font-weight: 600;
+  margin: 0 auto;
+  max-width: 480px;
+  h2{
+    font-size: 1.5rem;
+    font-weight: 100;
+    margin: 0;
+    font-family: 'Dosis', sans-serif;
+    letter-spacing: 1.4px;
+  }
   label {
     display: block;
-    margin-bottom: 1rem;
+    margin: 1.5rem 0;
+    font-size: 1rem;
+    font-weight: 100;
   }
   input,
   textarea,
@@ -42,19 +53,18 @@ const Form = styled.form`
     background: red;
     color: white;
     border: 0;
-    font-size: 2rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 400;
     padding: 0.5rem 1.2rem;
   }
   fieldset {
     border: 0;
-    padding: 0;
-
+    padding: 0.4rem 0;
     &[disabled] {
       opacity: 0.5;
     }
     &::before {
-      height: 10px;
+      height: 1px;
       content: '';
       display: block;
       background-image: linear-gradient(to right, #ff3019 0%, #e2b04a 50%, #ff3019 100%);
@@ -63,6 +73,20 @@ const Form = styled.form`
       background-size: 50% auto;
       animation: ${loading} 0.5s linear infinite;
     }
+  }
+  div.error{
+     font-size: 1rem;
+     color:  ${props => props.theme.red};
+     margin: 0.4rem 0;
+     text-align: center;
+  }
+  ul.error{
+     margin: 0;
+     padding: 0;
+     font-size: 1rem;
+     font-weight: 100;
+     color:  ${props => props.theme.red};
+     list-style: none;
   }
 `;
 

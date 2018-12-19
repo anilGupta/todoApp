@@ -8,7 +8,9 @@ const
         error: false,
         token: null,
         user: {},
-        signupLoading: false
+        signupLoading: false,
+        signupError: false,
+        signupErrorDetails: {}
     },
     authReducer = (state = initialState, action) =>{
 
@@ -43,6 +45,9 @@ const
 
             case types.SIGNUP_RECEIVE:
                  return Object.assign({}, state, { signupLoading: false });
+
+            case types.SIGNUP_RECEIVE_ERROR:
+                 return Object.assign({}, state, { signupError: true, signupErrorDetails: action.error });
 
             default:
                 return state;

@@ -5,8 +5,8 @@ import urls from '../constants/Urls'
 const Footer = () => {
   const year = new Date().getFullYear();
   return (
-    <footer className="footer">
-      <div>coding ‹›‡°··‚——ÔÓ˝¸</div>
+    <footer>
+      <div />
     </footer>
   )
 };

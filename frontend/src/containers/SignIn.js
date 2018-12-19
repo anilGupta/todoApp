@@ -65,9 +65,9 @@ class SignIn extends Component{
           return (
               <Columns>
                 <Form method="post" onSubmit={this.handleSubmit}>
+                  <h2>SIGN INTO YOUR ACCOUNT</h2>
                   <fieldset disabled={false} aria-busy={false}>
-                    <h2>Sign into your account</h2>
-                    { error ? <div className="danger"> { error } </div> : null}
+                    { error ? <div className="error"> { error } </div> : null}
                     <label htmlFor="email"> Username/Email
                       <input type="input" name="username" placeholder="email" value={username   } onChange={this.handleChange} />
                     </label>
@@ -77,9 +77,6 @@ class SignIn extends Component{
                     </label>
                     <button type="submit">Sign In!</button>
                   </fieldset>
-                  <p>
-                    Don't have account "Signup"
-                  </p>
                 </Form>
               </Columns>
           );

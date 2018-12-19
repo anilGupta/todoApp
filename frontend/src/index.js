@@ -18,7 +18,7 @@ createGlobalStyle`
   body {
     padding: 0;
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1rem;
     line-height: 2;
     font-family: 'Open Sans', sans-serif;
   }
@@ -29,15 +29,10 @@ createGlobalStyle`
   button {  font-family: 'Open Sans', sans-serif; }
 `;
 
+
 const StyledPage = styled.div`
   background: white;
   color: ${props => props.theme.black};
-`;
-
-const Inner = styled.div`
-  max-width: ${props => props.theme.maxWidth};
-  margin: 0 auto;
-  padding: 2rem;
 `;
 
 
@@ -47,9 +42,7 @@ const render = (Component) => {
           <Provider store={store}>
             <ThemeProvider theme={theme}>
               <StyledPage>
-                <Inner>
-                  <Component />
-                </Inner>
+                <Component />
               </StyledPage>
             </ThemeProvider>
           </Provider>

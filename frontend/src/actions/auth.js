@@ -30,8 +30,9 @@ const
     checkAuth =  ({username, password})  =>{
         	return dispatch => {
             	const body = { username, password };
-            	return network.post(urls.login, body).then(({id=false, user={}}) => {
-                         Storage.set("token", id.replace(/"/g, ''));
+            	return network.post(urls.login, body).then(res => {
+            	           const {id=false, user={}} = res;
+                         Storage.set("token", id ? id.replace(/"/g, ''): false);
 				                 Storage.set("user", user);
                          dispatch(receiveAuth(user, id));
                          return Promise.resolve({id, user});
@@ -52,16 +53,28 @@ const
             token,
         }
     },
+    createUser = data => {
+       return (dispatch, getState) => {
+         return network.post(urls.signup, data).then(res => {
+            if(res.error){
+               dispatch({
+                  type: types.SIGNUP_RECEIVE_ERROR,
+                  error: res.error.details ? res.error.details.messages: { "failed": res.error.message }
+               })
+            }
+         });
+       }
+    },
     logout = () => {
 	    	return (dispatch, getState) => {
 			  const { auth: { token }} = getState();
             	Storage.delete('token');
             	Storage.delete('user');
-            	network.post(urls.logout, {}, token).then(res => {
-				      dispatch({
+            	network.post(urls.getByName('logout', token), {}).then(res => {
+				          dispatch({
                     	type: types.AUTH_RESET
                 	})
-            	})
+            	});
               return Promise.resolve(true);
         	}
     };
@@ -69,5 +82,6 @@ const
 export  {
     initialize,
     authenticate,
+    createUser,
     logout
 }
