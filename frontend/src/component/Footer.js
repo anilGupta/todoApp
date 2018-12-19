@@ -6,7 +6,7 @@ const Footer = () => {
   const year = new Date().getFullYear();
   return (
     <footer className="footer">
-      <div>--year</div>
+      <div>coding ‹›‡°··‚——ÔÓ˝¸</div>
     </footer>
   )
 };

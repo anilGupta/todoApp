@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { initialize, logout } from '../actions/auth';
 
-import { SignIn, Home}  from './'
+import { SignIn, Todo}  from './'
 import { Header, Footer }  from '../component'
 
 const AuthRoute = ({ component: Component, ...rest, authenticated, open }) => (
@@ -46,7 +46,7 @@ class App extends Component{
               <div className="pageContent">
                 <Switch>
                   <AuthRoute path="/login" component={SignIn} authenticated={authenticated} />
-                  <AuthRoute exact path="/" component={Home} authenticated={authenticated} />
+                  <AuthRoute exact path="/" component={Todo} authenticated={authenticated} />
                 </Switch>
               </div>
               <Footer />

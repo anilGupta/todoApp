@@ -6,8 +6,9 @@ const
         authenticated: null,
         loading: false,
         error: false,
+        token: null,
         user: {},
-
+        signupLoading: false
     },
     authReducer = (state = initialState, action) =>{
 
@@ -17,11 +18,15 @@ const
             }
 
             case types.AUTH_RECEIVE: {
+              console.log(action);
+
+              const { token, user } = action;
                 return Object.assign({}, state, {
-                    authenticated: action.authenticated,
+                    authenticated: action.token,
                     loading:false,
-                    user : action.user,
-                    error: action.authenticated ? false : "Invalid Credential"
+                    token,
+                    user,
+                    error: token ? false : "Invalid Credential"
                 });
             }
 
@@ -30,16 +35,14 @@ const
             }
 
             case types.AUTH_RESET: {
-               return Object.assign({}, initialState, { authenticated: false})
+                return Object.assign({}, initialState, { authenticated: false})
             }
 
+	          case types.SIGNUP_REQUEST:
+     		        return Object.assign({}, state, { signupLoading: true });
 
-
-	       case types.SIGNUP_REQUEST:
-     		     return Object.assign({}, state, { signupLoading: true });
-
-         case types.SIGNUP_RECEIVE:
-             return Object.assign({}, state, { signupLoading: false });
+            case types.SIGNUP_RECEIVE:
+                 return Object.assign({}, state, { signupLoading: false });
 
             default:
                 return state;

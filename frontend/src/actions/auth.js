@@ -6,11 +6,10 @@ import urls from '../constants/Urls';
 const
     initialize = () => {
         return (dispatch) => {
-            const passcode = Storage.get('passcode'),
-                  auth = Storage.get('auth');
-                  if(auth){
+            const token = Storage.get('token');
+                  if(token){
                      const user = Storage.get("user");
-                     return dispatch(receiveAuth(user, auth));
+                     return dispatch(receiveAuth(user, token));
                   }else{
                     return dispatch(initAuth(false));
                   }
@@ -27,40 +26,36 @@ const
             	dispatch(requestAuth());
             	return dispatch(checkAuth(auth))
         	}
-    	},
-    	checkAuth =  ({username, password})  =>{
+    },
+    checkAuth =  ({username, password})  =>{
         	return dispatch => {
             	const body = { username, password };
-            	return network.post(urls.login, body).then(result => {
-            	    console.log("result", result)
-
-                	const auth = result.id ? result.id: false,
-                      	 user = auth ? { profile : result.user, token:result.token }: {};
-                         Storage.set("auth", auth);
-				                 Storage.set("user", auth ? {token : result.token }: {});
-                         dispatch(receiveAuth(user, auth));
-                         return Promise.resolve(result);
+            	return network.post(urls.login, body).then(({id=false, user={}}) => {
+                         Storage.set("token", id.replace(/"/g, ''));
+				                 Storage.set("user", user);
+                         dispatch(receiveAuth(user, id));
+                         return Promise.resolve({id, user});
                   });
         }
-    	},
+    },
     requestAuth = () => {
         return {
             type: types.AUTH_REQUEST,
             loading: true,
         }
     },
-    receiveAuth = (user, authenticated)=> {
+    receiveAuth = (user, token)=> {
         return {
             type: types.AUTH_RECEIVE,
             loading: false,
             user,
-            authenticated,
+            token,
         }
     },
     logout = () => {
 	    	return (dispatch, getState) => {
-			  const { auth: { user: { token }}} = getState();
-            	Storage.delete('auth');
+			  const { auth: { token }} = getState();
+            	Storage.delete('token');
             	Storage.delete('user');
             	network.post(urls.logout, {}, token).then(res => {
 				      dispatch({

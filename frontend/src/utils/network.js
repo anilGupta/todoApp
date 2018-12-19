@@ -20,11 +20,12 @@ const
     'Accept': 'application/json',
     'Content-Type': 'application/json',
   },
-  getDefaultHeader = (authToken) => {
+  getDefaultHeader = () => {
     return {
-      headers : Object.assign({}, defaultHeaders, {'Authorization': `Bearer ${authToken}`})
+      headers : Object.assign({}, defaultHeaders)
     }
   },
+
   network = {
     /**
      * @function get
@@ -32,10 +33,10 @@ const
      * @param {string} path
      * @returns {promise}
      */
-    get: (path, authToken) => {
+    get: (path) => {
       return request(path, Object.assign(
         {method: 'GET'},
-        getDefaultHeader(authToken)
+        getDefaultHeader()
       ));
     },
 
@@ -44,16 +45,14 @@ const
      * @description Make a HTTP POST request.
      * @param {string} path
      * @param {object} body
-     * @param {string} authToken
      * @returns {promise}
      */
-    post: (path, body, authToken='') => {
+    post: (path, body) => {
       const options = {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${authToken}`,
         },
         body: JSON.stringify(body),
       };
@@ -65,16 +64,14 @@ const
      * @description Make a HTTP PUT request.
      * @param {string} path
      * @param {object} body
-     * @param {string} authToken
      * @returns {promise}
      */
-    put: (path, body, authToken='') => {
+    put: (path, body) => {
       const options = {
         method: 'PUT',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${authToken}`,
         },
         body: JSON.stringify(body),
       };
@@ -85,16 +82,14 @@ const
      * @description Make a HTTP PATCH request.
      * @param {string} path
      * @param {object} body
-     * @param {string} authToken
      * @returns {promise}
      */
-    patch: (path, body, authToken='') => {
+    patch: (path, body={}) => {
       const options = {
         method: 'PATCH',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${authToken}`,
         },
         body: JSON.stringify(body),
       };
@@ -105,27 +100,29 @@ const
      * @description Make a HTTP DELETE request.
      * @param {string} path
      * @param {object} body
-     * @param {string} authToken
      * @returns {promise}
      */
-    delete: (path, body, authToken='') => {
+    delete: (path, body={}) => {
       const options = {
         method: 'DELETE',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${authToken}`,
         },
         body: JSON.stringify(body),
       };
       return request(path, options);
     },
-    postForm: (path, body, authToken) => {
+    /**
+     * @function postForm
+     * @description Make a HTTP POST request.
+     * @param {string} path
+     * @param {object} body
+     * @returns {promise}
+     */
+    postForm: (path, body) => {
       const options = {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${authToken}`,
-        },
         body: body,
       };
       return request(path, options)

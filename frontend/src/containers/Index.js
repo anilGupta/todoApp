@@ -1,8 +1,8 @@
-import Home from './Home';
+import Todo from './Todo';
 import SignIn from './SignIn';
 
 
 export {
   SignIn,
-  Home
+  Todo
 }

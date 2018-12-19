@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { authenticate, initialize } from '../actions/auth'
+import Columns from '../component/styles/Columns';
+import Form from '../component/styles/Form';
+
+
 
 @connect(
   	state =>{ return {app: state.app, auth: state.auth}},
@@ -57,23 +61,27 @@ class SignIn extends Component{
 
   	render() {
     		const { auth: { error= false } } = this.props,
-              { username, password, reset, isOpen} = this.state;
+              { username, password } = this.state;
           return (
-            <div className="container-fluid">
-              <div>
-                <form onSubmit={this.handleSubmit}>
-                  <h1>Login</h1>
-                  { error ? <Alert divor="danger"> { error } </Alert> : null}
-                  <div className="form-group">
-                    <input className="form-control" id="emailinput" name="username" placeholder="Username" onChange={this.handleChange}/>
-                  </div>
-                  <div className="form-group">
-                    <input type="password" className="form-control" id="passwordinput" name="password" autoComplete="new-password" placeholder="Password" onChange={this.handleChange}/>
-                  </div>
-                  <button type="submit" className="btn btn-default btn-block btn-main">SIGN IN</button>
-                </form>
-              </div>
-            </div>
+              <Columns>
+                <Form method="post" onSubmit={this.handleSubmit}>
+                  <fieldset disabled={false} aria-busy={false}>
+                    <h2>Sign into your account</h2>
+                    { error ? <div className="danger"> { error } </div> : null}
+                    <label htmlFor="email"> Username/Email
+                      <input type="input" name="username" placeholder="email" value={username   } onChange={this.handleChange} />
+                    </label>
+                    <label htmlFor="password">
+                      Password
+                      <input type="password" name="password" placeholder="password" value={password} onChange={this.handleChange} />
+                    </label>
+                    <button type="submit">Sign In!</button>
+                  </fieldset>
+                  <p>
+                    Don't have account "Signup"
+                  </p>
+                </Form>
+              </Columns>
           );
   	}
 }

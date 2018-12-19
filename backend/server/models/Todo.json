@@ -1,6 +1,6 @@
 {
-  "name": "todo",
-  "plural": "todos",
+  "name": "Todo",
+  "plural": "Todos",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -31,14 +31,14 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "creator": {
+      "type": "belongsTo",
+      "model": "User",
+      "foreignKey": "ownerId"
+    }
+  },
   "acls": [
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$authenticated",
-      "permission": "DENY"
-    },
     {
       "accessType": "*",
       "principalType": "ROLE",
