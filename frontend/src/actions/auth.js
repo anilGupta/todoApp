@@ -57,10 +57,16 @@ const
        return (dispatch, getState) => {
          return network.post(urls.signup, data).then(res => {
             if(res.error){
-               dispatch({
+               return dispatch({
                   type: types.SIGNUP_RECEIVE_ERROR,
                   error: res.error.details ? res.error.details.messages: { "failed": res.error.message }
                })
+            }else{
+              dispatch({
+                 type: types.SIGNUP_RECEIVE,
+                 auth: res
+              });
+              return Promise.resolve(true);
             }
          });
        }

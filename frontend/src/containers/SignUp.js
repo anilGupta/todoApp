@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createUser } from '../actions/auth'
 import Columns from '../component/styles/Columns';
 import Form from '../component/styles/Form';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 @connect(
@@ -37,7 +38,12 @@ class SignUp extends Component{
 
   	handleSubmit(e){
      	e.preventDefault();
-     	this.props.createUser(this.state)
+      toast("User Created Successfully !! Please Login");
+     	this.props.createUser(this.state).then(res => {
+          if(!res.error){
+            toast("User Created Successfully !! Please Login");
+          }
+      })
   	}
 
   	handleChange(e){
@@ -54,45 +60,47 @@ class SignUp extends Component{
   }
 
 
-  	render() {
-    		const { auth: { signupError, signupErrorDetails } } = this.props,
-              { email, username, password, confirmPassword } = this.state;
+  render() {
+      const { auth: { signupError, signupErrorDetails } } = this.props,
+            { email, username, password, confirmPassword } = this.state,
+              isValidPassword = password && confirmPassword ?  password == confirmPassword : true,
+              isValidForm = email && username && password && confirmPassword && isValidPassword,
+              submitProps = isValidForm ? {} : {disabled: 'disabled', className: 'disabled'};
 
-    		        console.log(signupError, signupErrorDetails);
+        return (
+            <Columns>
+              <Form method="post" onSubmit={this.handleSubmit}>
+                <h2>SIGN UP FOR ACCOUNT</h2>
+                <fieldset disabled={false} aria-busy={false}>
+                 { signupError
+                    ? <ul className="error">
+                      {Object.keys(signupErrorDetails).map((err, key) => {
+                         return <li key={key}> -- {err} {signupErrorDetails[err]}</li>
+                      })}
+                      </ul> : null}
+                  <label htmlFor="email"> Username
+                    <input type="input" name="username" placeholder="username" value={username} onChange={this.handleChange} />
+                  </label>
 
+                  <label htmlFor="email"> Email
+                    <input  type="input" name="email" placeholder="email" value={email} onChange={this.handleChange} />
+                  </label>
 
-          return (
-              <Columns>
-                <Form method="post" onSubmit={this.handleSubmit}>
-                  <h2>SIGN UP FOR ACCOUNT</h2>
-                  <fieldset disabled={false} aria-busy={false}>
-                   { signupError
-                      ? <ul className="error">
-                        {Object.keys(signupErrorDetails).map((err, key) => {
-                           return <li key={key}>{err} {signupErrorDetails[err]}</li>
-                        })}
-                        </ul> : null}
-                    <label htmlFor="email"> Username
-                      <input type="input" name="username" placeholder="username" value={username} onChange={this.handleChange} />
-                    </label>
+                  <label htmlFor="password"> Password
+                    <input  type="password" name="password" placeholder="password" value={password} onChange={this.handleChange} />
+                  </label>
 
-                    <label htmlFor="email"> Email
-                      <input type="input" name="email" placeholder="email" value={email} onChange={this.handleChange} />
-                    </label>
-
-                    <label htmlFor="password"> Password
-                      <input type="password" name="password" placeholder="password" value={password} onChange={this.handleChange} />
-                    </label>
-
-                    <label htmlFor="confirmPassword"> Confirm Password
-                      <input type="password" name="confirmPassword" placeholder="confirmPassword" value={confirmPassword} onChange={this.handleChange} />
-                    </label>
-                    <button type="submit">Sign Up!</button>
-                  </fieldset>
-                </Form>
-              </Columns>
-          );
-  	}
+                  <label htmlFor="confirmPassword"> Confirm Password
+                    <input className={`${isValidPassword ? '': 'invalid'}`} type="password" name="confirmPassword" placeholder="confirmPassword" value={confirmPassword} onChange={this.handleChange} />
+                    {!isValidPassword && <p className="help">password is not matching</p>}
+                  </label>
+                  <button type="submit" {...submitProps} >Sign Up!</button>
+                </fieldset>
+                <ToastContainer hideProgressBar={true} autoClose={false} />
+              </Form>
+            </Columns>
+        );
+  }
 }
 
 export default SignUp;

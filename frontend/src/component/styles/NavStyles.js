@@ -19,8 +19,11 @@ const NavStyles = styled.ul`
     background: none;
     border: 0;
     cursor: pointer;
-    color: ${props => props.theme.black};
-    font-weight: 800;
+    color: ${props => props.theme.darkgrey};
+    font-weight: 100;
+    font-family 'dosis';
+    letter-spacing: 2px;
+    text-decoration: none;
     @media (max-width: 700px) {
       font-size: 10px;
       padding: 0 10px;
@@ -46,7 +49,7 @@ const NavStyles = styled.ul`
       transition: width 0.4s;
       transition-timing-function: cubic-bezier(1, -0.65, 0, 2.31);
       left: 50%;
-      margin-top: 2rem;
+      margin-top: 1rem;
     }
     &:hover,
     &:focus {

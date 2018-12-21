@@ -48,8 +48,6 @@ class Header extends React.Component {
 
   render() {
     const {user} = this.props;
-    console.log("user is ", user)
-
     return (
       <StyledHeader>
         <div className="bar">

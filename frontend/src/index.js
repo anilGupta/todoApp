@@ -6,6 +6,7 @@ import configureStore from "./stores/stores";
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from "react-redux";
 import { theme } from './constants/Theme';
+import 'react-toastify/dist/ReactToastify.css';
 
 createGlobalStyle`
   html {
@@ -18,7 +19,7 @@ createGlobalStyle`
   body {
     padding: 0;
     margin: 0;
-    font-size: 1rem;
+    font-size: 1em;
     line-height: 2;
     font-family: 'Open Sans', sans-serif;
   }

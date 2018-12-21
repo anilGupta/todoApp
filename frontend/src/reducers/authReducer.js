@@ -44,7 +44,7 @@ const
      		        return Object.assign({}, state, { signupLoading: true });
 
             case types.SIGNUP_RECEIVE:
-                 return Object.assign({}, state, { signupLoading: false });
+                 return Object.assign({}, initialState, { signupLoading: false });
 
             case types.SIGNUP_RECEIVE_ERROR:
                  return Object.assign({}, state, { signupError: true, signupErrorDetails: action.error });

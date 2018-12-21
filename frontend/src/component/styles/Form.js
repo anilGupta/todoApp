@@ -34,6 +34,13 @@ const Form = styled.form`
     margin: 1.5rem 0;
     font-size: 1rem;
     font-weight: 100;
+    p{
+        margin: 0;
+        padding: 0;
+        font-size: 12px;
+        color: ${props => props.theme.red};
+        font-style: italic
+    }
   }
   input,
   textarea,
@@ -41,9 +48,12 @@ const Form = styled.form`
     width: 100%;
     padding: 0.5rem;
     font-size: 1rem;
-    border: 1px solid black;
+    border: 1px solid ${props => props.theme.darkgrey};
     &:focus {
       outline: 0;
+      border-color: ${props => props.theme.black};
+    }
+    &.invalid{
       border-color: ${props => props.theme.red};
     }
   }
@@ -56,6 +66,9 @@ const Form = styled.form`
     font-size: 1rem;
     font-weight: 400;
     padding: 0.5rem 1.2rem;
+    &.disabled{
+       opacity: 0.4
+    }
   }
   fieldset {
     border: 0;
@@ -81,13 +94,18 @@ const Form = styled.form`
      text-align: center;
   }
   ul.error{
-     margin: 0;
+     margin: 10 0;
      padding: 0;
      font-size: 1rem;
      font-weight: 100;
      color:  ${props => props.theme.red};
      list-style: none;
+     li {
+        line-height: 16px;
+        font-size:14px;
+     }
   }
+  
 `;
 
 export default Form;
