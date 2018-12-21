@@ -20,8 +20,6 @@ const
             }
 
             case types.AUTH_RECEIVE: {
-              console.log(action);
-
               const { token, user } = action;
                 return Object.assign({}, state, {
                     authenticated: action.token,

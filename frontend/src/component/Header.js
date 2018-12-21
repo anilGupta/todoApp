@@ -10,7 +10,7 @@ const Logo = styled.h1`
   position: relative;
   z-index: 2;
   transform: skew(-7deg);
-  justify-content: center
+  justify-content: center;
   a {
     padding: 0.5rem 1rem;
     background: ${props => props.theme.red};
@@ -45,6 +45,15 @@ const StyledHeader = styled.header`
 
 
 class Header extends React.Component {
+  constructor(props){
+      super(props);
+      this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  handleLogout(e){
+     e.preventDefault();
+     this.props.logout()
+  }
 
   render() {
     const {user} = this.props;
@@ -58,7 +67,8 @@ class Header extends React.Component {
         <div>
           <NavStyles data-test="nav">
             {user && <span>Welcome {user.username}</span>}
-            {user && <NavLink to="/sell">Logout</NavLink>}
+            {user && <NavLink to="/">Todos</NavLink>}
+            {user && <NavLink to="#" onClick={this.handleLogout}>Logout</NavLink>}
             {!user && <NavLink to="/login">Sign In</NavLink>}
             {!user && <NavLink to="/signup">Sign Up</NavLink>}
           </NavStyles>

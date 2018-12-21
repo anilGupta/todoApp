@@ -7,18 +7,28 @@ const Item = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  opacity: ${props => props.archive ? 0.7: 1};
+  &:hover{
+     opacity: 1;
+  }
   img {
     width: 100%;
     height: 400px;
     object-fit: cover;
   }
+  h3{
+    font-family: ${props => props.theme.fontAlt};
+    padding: 0 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+  }
   p {
-    font-size: 12px;
-    line-height: 2;
+    line-height: 1.4;
     font-weight: 300;
     flex-grow: 1;
-    padding: 0 3rem;
-    font-size: 1.5rem;
+    padding: 0 1rem;
+    font-size: 1rem;
+    margin: 0 0 1rem;
   }
   .buttonList {
     display: grid;
@@ -30,9 +40,18 @@ const Item = styled.div`
     & > * {
       background: white;
       border: 0;
-      font-family: 'radnika_next';
+      font-family: ${props => props.theme.fontAlt};
+      letter-spacing: 3px;
       font-size: 1rem;
       padding: 1rem;
+      text-decoration: none;
+      color:  ${props => props.theme.darkgrey};
+    }
+    svg{
+       padding-bottom: 2px;
+    }
+    a.danger{
+        color:  ${props => props.theme.red};
     }
   }
 `;

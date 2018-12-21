@@ -16,7 +16,7 @@ const
             }
 
             case types.TODO_ADD: {
-              return Object.assign({}, state, { items : [...state.items, ...action.todo] });
+              return Object.assign({}, state, { items : [...state.items,  action.todo] });
             }
 
             case types.TODO_REMOVE: {

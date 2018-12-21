@@ -5,7 +5,13 @@ const
       if (!options) reject(new Error('Options parameter required'));
       fetch(url, options)
         .then(response => {
-          return response.json();
+            return response.text().then(text =>{
+              try {
+                return text ? JSON.parse(text) : {}
+              } catch (e){
+                return {};
+              }
+            })
         })
         .then(response => {
           if (response.errors) reject(response.errors);

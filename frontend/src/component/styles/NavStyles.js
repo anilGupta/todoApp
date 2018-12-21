@@ -5,7 +5,7 @@ const NavStyles = styled.ul`
   padding: 0;
   display: flex;
   justify-self: end;
-  font-size: 2rem;
+  font-size: 1.5rem;
   justify-content: flex-end;
   a,
   button {
@@ -14,14 +14,13 @@ const NavStyles = styled.ul`
     align-items: center;
     position: relative;
     text-transform: uppercase;
-    font-weight: 900;
     font-size: 1rem;
     background: none;
     border: 0;
     cursor: pointer;
     color: ${props => props.theme.darkgrey};
     font-weight: 100;
-    font-family 'dosis';
+    font-family: 'dosis';
     letter-spacing: 2px;
     text-decoration: none;
     @media (max-width: 700px) {
@@ -49,7 +48,7 @@ const NavStyles = styled.ul`
       transition: width 0.4s;
       transition-timing-function: cubic-bezier(1, -0.65, 0, 2.31);
       left: 50%;
-      margin-top: 1rem;
+      margin-top: 1.2rem;
     }
     &:hover,
     &:focus {
@@ -59,6 +58,23 @@ const NavStyles = styled.ul`
       }
     }
   }
+  
+  span{
+        padding: 0.5rem 2rem;
+        display: flex;
+        align-items: center;
+        position: relative;
+        text-transform: uppercase;
+        font-size: 1rem;
+        background: none;
+        border: 0;
+        color: ${props => props.theme.red};
+        font-weight: 100;
+        font-family:'dosis';
+        letter-spacing: 2px;
+        text-decoration: none;
+  }
+  
   @media (max-width: 1300px) {
     border-top: 1px solid ${props => props.theme.lightgrey};
     width: 100%;

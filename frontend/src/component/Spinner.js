@@ -1,11 +1,21 @@
-import React, { Component } from 'react'
+import React from 'react'
+import styled from 'styled-components';
+
+const SpinnerStyle = styled.div`
+    text-align: center;
+    min-height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
 
 const
   Spinner = () => {
     return (
-      <div className="spinner">
+      <SpinnerStyle>
         <img src="/assets/images/spinner.svg" alt="loading"/>
-      </div>
+      </SpinnerStyle>
     )
   };
 export default Spinner;

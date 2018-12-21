@@ -25,7 +25,6 @@ class SignUp extends Component{
           confirmPassword: ''
     		};
 
-    this.toggle = this.toggle.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
   	}
@@ -53,17 +52,11 @@ class SignUp extends Component{
      	})
   	}
 
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
-
 
   render() {
       const { auth: { signupError, signupErrorDetails } } = this.props,
             { email, username, password, confirmPassword } = this.state,
-              isValidPassword = password && confirmPassword ?  password == confirmPassword : true,
+              isValidPassword = password && confirmPassword ?  password === confirmPassword : true,
               isValidForm = email && username && password && confirmPassword && isValidPassword,
               submitProps = isValidForm ? {} : {disabled: 'disabled', className: 'disabled'};
 

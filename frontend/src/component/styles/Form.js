@@ -20,13 +20,13 @@ const Form = styled.form`
   font-size: 1.5rem;
   line-height: 1.5;
   font-weight: 600;
-  margin: 0 auto;
-  max-width: 480px;
+  margin: ${props => props.full ? '0' :  '0 auto' };
+  max-width: ${props => props.full ? '100%' :  '480px' };
   h2{
     font-size: 1.5rem;
     font-weight: 100;
     margin: 0;
-    font-family: 'Dosis', sans-serif;
+    font-family: ${props => props.theme.fontAlt};
     letter-spacing: 1.4px;
   }
   label {
@@ -49,6 +49,7 @@ const Form = styled.form`
     padding: 0.5rem;
     font-size: 1rem;
     border: 1px solid ${props => props.theme.darkgrey};
+    font-family: "Open Sans", Arial, sans-serif;
     &:focus {
       outline: 0;
       border-color: ${props => props.theme.black};

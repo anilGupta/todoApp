@@ -8,7 +8,7 @@ const
       const { auth: { token }} = getState();
       dispatch(requestTodoList());
       return Network.get(urls.getByName('todos', token)).then(result => {
-           dispatch(receiveSlots(result))
+           dispatch(receiveTodoList(result))
       })
     }
   },
@@ -17,10 +17,22 @@ const
       type : types.TODO_LIST_REQUEST
     }
   },
-  receiveSlots = todos => {
+  receiveTodoList = todos => {
     return {
       type: types.TODO_LIST_RECEIVE,
       todos
+    }
+  },
+  createTodo = todo => {
+    return (dispatch, getState) => {
+      const { auth: { token }} = getState();
+      return Network.post(urls.getByName('todos', token), todo).then(res => {
+        return dispatch({
+          type: types.TODO_ADD,
+          todo,
+          res
+        })
+      })
     }
   },
   removeTodo = todo => {
@@ -56,5 +68,6 @@ const
 export  {
   fetchTodoListIfNeeded,
   removeTodo,
-  updateTodo
+  updateTodo,
+  createTodo
 }

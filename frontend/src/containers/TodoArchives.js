@@ -18,7 +18,7 @@ import {Add, Archive} from 'styled-icons/material';
     updateTodo
   }, dispatch))
 )
-class Todo extends Component{
+class TodoArchives extends Component{
 
   constructor(props){
      super(props);
@@ -35,12 +35,12 @@ class Todo extends Component{
   }
 
   handleAction(todo, action){
-    switch(action){
-      case "delete":
-        return this.props.removeTodo(todo).then(res => toast("Todo Removed Successfully"));
-      case "archive":
-        return this.props.updateTodo(Object.assign({}, todo, { archive: !todo.archive })).then(res => toast(`Todo ${todo.archive ? 'Restored': 'Archived'}`));
-    }
+     switch(action){
+       case "delete":
+         return this.props.removeTodo(todo).then(res => toast("Todo Removed Successfully"));
+       case "archive":
+         return this.props.updateTodo(Object.assign({}, todo, { archive: !todo.archive })).then(res => toast(`Todo ${todo.archive ? 'Restored': 'Archived'}`));
+     }
   }
 
   render() {
@@ -54,15 +54,14 @@ class Todo extends Component{
     return (
        <div>
          <TodoListHeaderStyle>
-             <h3>Todo List</h3>
+             <h3>Archived Todo List</h3>
              <div className="actions">
-               <NavLink to="/todo/add"><Add size="24" title="add todos" /> &nbsp; add</NavLink>
-               <NavLink to="/todo/archives" ><Archive size="24" title="archive todos" /> &nbsp; Archive Lists</NavLink>
+               <NavLink to="/"><Archive size="24" title="todos" /> &nbsp; Back</NavLink>
              </div>
          </TodoListHeaderStyle>
          <Columns>
-           {items.filter(todo => !todo.archive).map((todo, key) => {
-             return <TodoItem {...todo} key={key} handleAction={this.handleAction.bind(this, todo)} />
+           {items.filter(todo => todo.archive).map(todo => {
+             return <TodoItem {...todo} key={todo.id} handleAction={this.handleAction.bind(this, todo)}  />
            })}
            <ToastContainer hideProgressBar={true} />
          </Columns>
@@ -72,4 +71,4 @@ class Todo extends Component{
   }
 }
 
-export default Todo;
+export default TodoArchives;
