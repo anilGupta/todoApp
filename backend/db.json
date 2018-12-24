@@ -1,11 +1,11 @@
 {
   "ids": {
     "User": 4,
-    "AccessToken": 24,
+    "AccessToken": 25,
     "ACL": 1,
     "RoleMapping": 1,
     "Role": 1,
-    "Todo": 26
+    "Todo": 38
   },
   "models": {
     "User": {
@@ -29,7 +29,8 @@
       "QpIyEWH7OV22hrBFjzaD4sVNXxQiBh7rGGY8kYUAYlT307RHPHdpGho2BYEwF555": "{\"id\":\"QpIyEWH7OV22hrBFjzaD4sVNXxQiBh7rGGY8kYUAYlT307RHPHdpGho2BYEwF555\",\"ttl\":1209600,\"created\":\"2018-12-21T01:48:49.103Z\",\"userId\":2}",
       "FgA2oHHsLYSk7qZ0iA4EAuaCUTTuLywSGXDS2fTFdqID7TamrCOLejisJt9iSRjG": "{\"id\":\"FgA2oHHsLYSk7qZ0iA4EAuaCUTTuLywSGXDS2fTFdqID7TamrCOLejisJt9iSRjG\",\"ttl\":1209600,\"created\":\"2018-12-21T01:49:57.520Z\",\"userId\":1}",
       "6Yzelky14H7qOOCsKTa3LaDlEoG60E0d0NK2gQe4K1puPXvjCgT6QXfAzPRwOhas": "{\"id\":\"6Yzelky14H7qOOCsKTa3LaDlEoG60E0d0NK2gQe4K1puPXvjCgT6QXfAzPRwOhas\",\"ttl\":1209600,\"created\":\"2018-12-21T06:22:07.119Z\",\"userId\":3}",
-      "AcxGxi1A7NzIHDlXBfgsJgLkj0FQhKYIBFV6ToR4y0n6ezQqe1biP73NIhg1BAyp": "{\"id\":\"AcxGxi1A7NzIHDlXBfgsJgLkj0FQhKYIBFV6ToR4y0n6ezQqe1biP73NIhg1BAyp\",\"ttl\":1209600,\"created\":\"2018-12-22T20:24:39.488Z\",\"userId\":1}"
+      "AcxGxi1A7NzIHDlXBfgsJgLkj0FQhKYIBFV6ToR4y0n6ezQqe1biP73NIhg1BAyp": "{\"id\":\"AcxGxi1A7NzIHDlXBfgsJgLkj0FQhKYIBFV6ToR4y0n6ezQqe1biP73NIhg1BAyp\",\"ttl\":1209600,\"created\":\"2018-12-22T20:24:39.488Z\",\"userId\":1}",
+      "xlv1lCIU8FGF8jJm3FkBLu7uv9EQDfaWkv44c8SeQEyMZexygPjMwTxRx3LakvWP": "{\"id\":\"xlv1lCIU8FGF8jJm3FkBLu7uv9EQDfaWkv44c8SeQEyMZexygPjMwTxRx3LakvWP\",\"ttl\":1209600,\"created\":\"2018-12-24T09:46:45.322Z\",\"userId\":1}"
     },
     "ACL": {},
     "RoleMapping": {},
@@ -42,15 +43,15 @@
       "7": "{\"title\":\"user 2 todo 3\",\"description\":\"my desc\",\"createdAt\":\"2018-12-18T19:11:22.508Z\",\"priority\":0,\"ownerId\":2,\"id\":7}",
       "13": "{\"title\":\"a\",\"description\":\"a\",\"createdAt\":\"2018-12-21T04:59:31.306Z\",\"ownerId\":1,\"id\":13,\"archive\":true}",
       "16": "{\"title\":\"hello \",\"description\":\"world\",\"createdAt\":\"2018-12-21T05:02:03.834Z\",\"ownerId\":1,\"id\":16,\"archive\":true}",
-      "17": "{\"title\":\"justify-content\",\"description\":\"around content items along the main-axis of a flex container, and the inline axis of a grid container.\",\"createdAt\":\"2018-12-21T05:24:31.464Z\",\"ownerId\":1,\"id\":17,\"archive\":false}",
-      "18": "{\"title\":\"my new todo\",\"description\":\"tod do with no descritipn\",\"createdAt\":\"2018-12-21T06:09:44.418Z\",\"ownerId\":1,\"id\":18,\"archive\":false}",
       "19": "{\"title\":\"hello\",\"description\":\"world one\\n\",\"createdAt\":\"2018-12-21T06:22:15.457Z\",\"ownerId\":3,\"id\":19}",
       "20": "{\"title\":\"me 122\",\"description\":\"me 2ererererer\",\"createdAt\":\"2018-12-21T06:23:18.604Z\",\"ownerId\":3,\"id\":20,\"archive\":false}",
       "21": "{\"title\":\"my newtod\",\"description\":\"my new todo sss\",\"createdAt\":\"2018-12-21T06:24:31.132Z\",\"ownerId\":3,\"id\":21}",
       "22": "{\"title\":\"redirect check\",\"description\":\"redirect check\",\"createdAt\":\"2018-12-21T06:26:38.436Z\",\"ownerId\":3,\"id\":22,\"archive\":true}",
       "23": "{\"title\":\"creating new todo\",\"description\":\"test new todo\",\"createdAt\":\"2018-12-21T06:27:43.146Z\",\"ownerId\":3,\"id\":23}",
       "24": "{\"title\":\"test\",\"description\":\"test\",\"createdAt\":\"2018-12-21T06:28:19.953Z\",\"ownerId\":3,\"id\":24,\"archive\":false}",
-      "25": "{\"title\":\"my title\",\"description\":\"my Description \",\"createdAt\":\"2018-12-21T11:07:30.020Z\",\"id\":25,\"ownerId\":3}"
+      "25": "{\"title\":\"my title\",\"description\":\"my Description \",\"createdAt\":\"2018-12-21T11:07:30.020Z\",\"id\":25,\"ownerId\":3}",
+      "36": "{\"title\":\"hey\",\"description\":\"heee\",\"attachments\":{\"container\":\"files\",\"name\":\"707720427202948.jpg\",\"type\":\"image/jpeg\",\"field\":\"filename\",\"originalFilename\":\"3.jpeg\",\"size\":288089},\"createdAt\":\"2018-12-24T11:49:58.427Z\",\"id\":36,\"ownerId\":1,\"files\":{},\"attaching\":true,\"attachFile\":true,\"removeFile\":false}",
+      "37": "{\"title\":\"hey\",\"description\":\"desc\",\"attachment\":{\"container\":\"files\",\"name\":\"8378913653917825.jpg\",\"type\":\"image/jpeg\",\"field\":\"filename\",\"originalFilename\":\"3.jpeg\",\"size\":288089},\"createdAt\":\"2018-12-24T12:02:21.079Z\",\"id\":37,\"ownerId\":1,\"files\":{},\"attaching\":true,\"attachFile\":true,\"removeFile\":false}"
     }
   }
 }

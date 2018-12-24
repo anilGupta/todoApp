@@ -111,11 +111,21 @@ const Form = styled.form`
      background: ${props => props.theme.offWhite};
      padding: 0.4rem 1rem;
      margin-bottom: 1rem;
+     position: relative;
      p{
         font-weight: 100;
         font-family: ${props => props.theme.fontAlt};
         letter-spacing: 1.4px;
         font-size:1rem;
+     }
+     .remove-attachment{
+         position: absolute;
+         right: 16px;
+         top: 24px;
+         font-size: 12px;
+         cursor: pointer;
+         color:  ${props => props.theme.red};
+         
      }
   }
   

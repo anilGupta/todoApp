@@ -3,6 +3,7 @@ import { Spinner } from '../component';
 import Form from '../component/styles/Form';
 import { ToastContainer, toast  } from 'react-toastify';
 import Dropzone from 'react-dropzone';
+import { RemoveCircleOutline } from 'styled-icons/material';
 
 
 class TodoForm extends React.Component {
@@ -17,8 +18,10 @@ class TodoForm extends React.Component {
         id: null,
         title: '',
         description: '',
-        files: [],
-        attaching: false
+        files: null,
+        attaching: false,
+        attachFile: false,
+        removeFile: false
       };
   }
 
@@ -47,18 +50,17 @@ class TodoForm extends React.Component {
   }
 
   onDrop(files) {
-    this.setState({files: files[0], attaching: true});
-    this.props.attachFiles(files).then(res => {
-
-    });
-
-    //console.log("files", files);
-
+    if(files.length){
+        this.setState({files: files[0], attaching: true, attachFile: true});
+    }else{
+        toast(`Please Select valid files types (Images, Text, Word, PDF, Excel)`);
+    }
   }
 
   onCancel() {
     this.setState({
-      files: []
+      files: null,
+      removeFile: this.props.data.file
     });
   }
 
@@ -71,7 +73,7 @@ class TodoForm extends React.Component {
 
   render() {
     const { loading, error, errorDetails } = this.props,
-          { id, title, description } = this.state,
+          { id, title, description, files } = this.state,
             isValidForm = title && description,
             submitProps = isValidForm ? {} : {disabled: 'disabled', className: 'disabled'},
             label = id ? 'Update': 'Create';
@@ -97,14 +99,25 @@ class TodoForm extends React.Component {
                     <textarea name="description" placeholder="description" value={description} onChange={this.handleChange} />
                   </label>
 
-                  <Dropzone onDrop={this.onDrop.bind(this)} onFileDialogCancel={this.onCancel.bind(this)} >
-                    {({getRootProps, getInputProps}) => (
-                      <div className="upload-container" {...getRootProps()}>
-                        <input {...getInputProps()} />
-                        <p>Click or drop files here, for attachment (images/docs/spreadsheet)</p>
+                  {files
+                    ? <div className="upload-container" onClick={this.onCancel}>
+                          <p>{files.name}</p>
+                          <span className="remove-attachment"><RemoveCircleOutline size="24" title="todos" /> Remove Attachment</span>
                       </div>
-                    )}
-                  </Dropzone>
+                    : <Dropzone
+                      onDrop={this.onDrop.bind(this)}
+                      onFileDialogCancel={this.onCancel.bind(this)}
+                      accept={['image/jpg', 'image/jpeg', 'image/png', 'application/vnd.ms-excel', 'application/docx','application/pdf','text/plain','application/msword','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',]}
+                    >
+                      {({getRootProps, getInputProps}) => (
+                        <div className="upload-container" {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          <p>Click or drop files here, for attachment (images/docs/spreadsheet)</p>
+                        </div>
+                      )}
+                    </Dropzone>
+                  }
+
 
                   <button type="submit" {...submitProps} >{label}</button>
                 </fieldset>

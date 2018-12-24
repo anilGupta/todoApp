@@ -1,5 +1,5 @@
 {
-  "name": "Container",
+  "name": "Attachment",
   "base": "Model",
   "idInjection": true,
   "options": {

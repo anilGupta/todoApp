@@ -15,10 +15,8 @@
       "type": "string",
       "required": true
     },
-    "attachments": {
-      "type": [
-        "object"
-      ]
+    "attachment": {
+      "type": "object"
     },
     "createdAt": {
       "type": "date"
