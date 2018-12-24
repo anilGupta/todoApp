@@ -5,6 +5,7 @@ const urls = {
    login	: `${baseUrl}/Users/login?include=user`,
    signup	: `${baseUrl}/Users`,
    logout	: `${baseUrl}/Users/logout`,
+   upload	: `${baseUrl}/Containers/CONTAINER_NAME/upload`,
    getByName : (name, token) => {
      return `${urls[name]}${token ? `?access_token=${token}`: ''}`
    }

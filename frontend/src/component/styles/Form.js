@@ -107,6 +107,18 @@ const Form = styled.form`
      }
   }
   
+  .upload-container{
+     background: ${props => props.theme.offWhite};
+     padding: 0.4rem 1rem;
+     margin-bottom: 1rem;
+     p{
+        font-weight: 100;
+        font-family: ${props => props.theme.fontAlt};
+        letter-spacing: 1.4px;
+        font-size:1rem;
+     }
+  }
+  
 `;
 
 export default Form;

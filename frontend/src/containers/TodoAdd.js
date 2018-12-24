@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { createTodo } from '../actions/todo';
+import { createTodo, attachTodoFiles } from '../actions/todo';
 import { Spinner, TodoItem } from '../component';
 import TodoListHeaderStyle from '../component/styles/TodoListHeaderStyle';
 import TodoForm from '../component/TodoForm';
@@ -14,7 +14,8 @@ import { ArrowBack } from 'styled-icons/material';
 @connect(
   state =>{ return {todo: state.todo }},
   dispatch => ( bindActionCreators({
-    createTodo
+    createTodo,
+    attachTodoFiles
   }, dispatch))
 )
 class TodoAdd extends Component{
@@ -37,7 +38,7 @@ class TodoAdd extends Component{
 
   render() {
 
-    const { todo : { todoLoading, todoError=false, todoErrorDetails }, createTodo, history } = this.props;
+    const { todo : { todoLoading, todoError=false, todoErrorDetails }, createTodo, attachTodoFiles, history } = this.props;
 
     return (
        <div>
@@ -48,7 +49,7 @@ class TodoAdd extends Component{
              </div>
          </TodoListHeaderStyle>
            <Columns>
-             <TodoForm loading={false} error={todoError} errorDetails={todoErrorDetails} data={{}} handleSubmit={createTodo} history={history} />
+             <TodoForm loading={false} error={todoError} errorDetails={todoErrorDetails} data={{}} attachFiles={attachTodoFiles} handleSubmit={createTodo} history={history} />
            </Columns>
        </div>
 

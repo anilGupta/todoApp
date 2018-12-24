@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Spinner } from '../component';
 import Form from '../component/styles/Form';
 import { ToastContainer, toast  } from 'react-toastify';
+import Dropzone from 'react-dropzone';
 
 
 class TodoForm extends React.Component {
@@ -10,10 +11,14 @@ class TodoForm extends React.Component {
       this.handleLogout = this.handleLogout.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+      this.onDrop       = this.onDrop.bind(this);
+      this.onCancel     = this.onCancel.bind(this);
       this.state = {
         id: null,
         title: '',
-        description: ''
+        description: '',
+        files: [],
+        attaching: false
       };
   }
 
@@ -39,6 +44,22 @@ class TodoForm extends React.Component {
      if(this.props.data){
         this.setState(this.props.data)
      }
+  }
+
+  onDrop(files) {
+    this.setState({files: files[0], attaching: true});
+    this.props.attachFiles(files).then(res => {
+
+    });
+
+    //console.log("files", files);
+
+  }
+
+  onCancel() {
+    this.setState({
+      files: []
+    });
   }
 
   handleChange(e){
@@ -75,6 +96,16 @@ class TodoForm extends React.Component {
                   <label htmlFor="email"> Description
                     <textarea name="description" placeholder="description" value={description} onChange={this.handleChange} />
                   </label>
+
+                  <Dropzone onDrop={this.onDrop.bind(this)} onFileDialogCancel={this.onCancel.bind(this)} >
+                    {({getRootProps, getInputProps}) => (
+                      <div className="upload-container" {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        <p>Click or drop files here, for attachment (images/docs/spreadsheet)</p>
+                      </div>
+                    )}
+                  </Dropzone>
+
                   <button type="submit" {...submitProps} >{label}</button>
                 </fieldset>
                 <ToastContainer hideProgressBar={true} />

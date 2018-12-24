@@ -2,6 +2,8 @@ import { types } from '../constants/ActionType';
 import Network from '../utils/network';
 import urls from '../constants/Urls';
 
+const ContainerName = 'files';
+
 const
   fetchTodoList = () => {
     return (dispatch, getState) => {
@@ -62,6 +64,19 @@ const
       const { todo : { items, loading }} = getState();
       return items.length ? Promise.resolve(items) : dispatch(fetchTodoList())
     }
+  },
+  attachTodoFiles = (file) => {
+     return (dispatch, getState) => {
+       const { auth: { token }} = getState(),
+               body = new FormData();
+               body.append('filename', file[0]);
+       console.log(file);
+
+
+       return Network.postForm(`${urls.upload.replace("CONTAINER_NAME", ContainerName)}/?access_token=${token}`, body).then(res => {
+         console.log(res);
+       })
+     }
   };
 
 
@@ -69,5 +84,6 @@ export  {
   fetchTodoListIfNeeded,
   removeTodo,
   updateTodo,
-  createTodo
+  createTodo,
+  attachTodoFiles
 }

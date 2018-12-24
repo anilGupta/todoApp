@@ -39,7 +39,7 @@
     "dataSource": "db",
     "public": true
   },
-  "container": {
+  "Container": {
     "dataSource": "myfilesystem",
     "public": true
   }
