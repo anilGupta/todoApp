@@ -6,6 +6,8 @@ import Dropzone from 'react-dropzone';
 import { RemoveCircleOutline } from 'styled-icons/material';
 
 
+const Priorities = ['Low', 'Medium', 'High'];
+
 class TodoForm extends React.Component {
   constructor(props){
       super(props);
@@ -18,6 +20,7 @@ class TodoForm extends React.Component {
         id: null,
         title: '',
         description: '',
+        priorities: null,
         files: null,
         attaching: false,
         attachFile: false,
@@ -60,7 +63,9 @@ class TodoForm extends React.Component {
   onCancel() {
     this.setState({
       files: null,
-      removeFile: this.props.data.file
+      removeFile: !!this.props.data.attachment,
+      attaching: false,
+      attachFile: false
     });
   }
 
@@ -73,10 +78,11 @@ class TodoForm extends React.Component {
 
   render() {
     const { loading, error, errorDetails } = this.props,
-          { id, title, description, files } = this.state,
+          { id, title, description, files, removeFile, attachment, priorities } = this.state,
             isValidForm = title && description,
             submitProps = isValidForm ? {} : {disabled: 'disabled', className: 'disabled'},
             label = id ? 'Update': 'Create';
+
             if(loading){
               return <Spinner/>
             }
@@ -99,26 +105,38 @@ class TodoForm extends React.Component {
                     <textarea name="description" placeholder="description" value={description} onChange={this.handleChange} />
                   </label>
 
-                  {files
-                    ? <div className="upload-container" onClick={this.onCancel}>
+                  <label htmlFor="email"> Priorities
+                    <select name="priorities"  onChange={this.handleChange}>
+                      {Priorities.map(item => {
+                        const props = item === priorities ? { selected: 'selected'} : {};
+                        return <option value={item} key={item} {...props}>{item}</option>
+                      })}
+                    </select>
+                  </label>
+
+                  {attachment && !removeFile
+                    ?  <div className="upload-container" onClick={this.onCancel}>
+                          <p>{attachment.originalFilename}</p>
+                          <span className="remove-attachment"><RemoveCircleOutline size="24" title="todos" /> Remove Attachment</span>
+                       </div>
+                    : files
+                      ? <div className="upload-container" onClick={this.onCancel}>
                           <p>{files.name}</p>
                           <span className="remove-attachment"><RemoveCircleOutline size="24" title="todos" /> Remove Attachment</span>
-                      </div>
-                    : <Dropzone
-                      onDrop={this.onDrop.bind(this)}
-                      onFileDialogCancel={this.onCancel.bind(this)}
-                      accept={['image/jpg', 'image/jpeg', 'image/png', 'application/vnd.ms-excel', 'application/docx','application/pdf','text/plain','application/msword','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',]}
-                    >
-                      {({getRootProps, getInputProps}) => (
-                        <div className="upload-container" {...getRootProps()}>
-                          <input {...getInputProps()} />
-                          <p>Click or drop files here, for attachment (images/docs/spreadsheet)</p>
                         </div>
-                      )}
-                    </Dropzone>
-                  }
-
-
+                      : <Dropzone
+                        onDrop={this.onDrop.bind(this)}
+                        onFileDialogCancel={this.onCancel.bind(this)}
+                        accept={['image/jpg', 'image/jpeg', 'image/png', 'application/vnd.ms-excel', 'application/docx','application/pdf','text/plain','application/msword','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',]}
+                        >
+                          {({getRootProps, getInputProps}) => (
+                            <div className="upload-container" {...getRootProps()}>
+                              <input {...getInputProps()} />
+                              <p>Click or drop files here, for attachment (images/docs/spreadsheet)</p>
+                            </div>
+                          )}
+                      </Dropzone>
+                    }
                   <button type="submit" {...submitProps} >{label}</button>
                 </fieldset>
                 <ToastContainer hideProgressBar={true} />

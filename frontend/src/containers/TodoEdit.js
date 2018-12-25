@@ -50,7 +50,7 @@ class TodoEdit extends Component{
 
   render() {
 
-    const { todo : { items, loading }, match: { params }, updateTodo, history } = this.props,
+    const { todo : { items, loading, todoError=false, todoErrorDetails }, match: { params }, updateTodo, history } = this.props,
             todo = items.find(item => item.id === +params.id ),
             activeTodo = todo? todo: false;
             if(loading || !activeTodo){
@@ -71,7 +71,7 @@ class TodoEdit extends Component{
                      </div>
                  </TodoListHeaderStyle>
                  <Columns>
-                   <TodoForm loading={loading || !activeTodo} data={activeTodo} handleSubmit={updateTodo} history={history} />
+                   <TodoForm error={todoError} errorDetails={todoErrorDetails} loading={loading || !activeTodo} data={activeTodo} handleSubmit={updateTodo} history={history} />
                  </Columns>
                </div>
             );

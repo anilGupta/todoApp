@@ -2,8 +2,11 @@ import { types } from '../constants/ActionType';
 import Network from '../utils/network';
 import urls from '../constants/Urls';
 
-const ContainerName = 'files';
-
+const ContainerName = 'files',
+      CleanTodoProps = (todo) => {
+        const {attaching, attachFile, removeFile, files, ...rest} = todo;
+        return rest;
+      }
 const
   fetchTodoList = () => {
     return (dispatch, getState) => {
@@ -33,7 +36,7 @@ const
             todo.attachment = result.files.filename[0]
         }
 
-        return Network.post(urls.getByName('todos', token), todo).then(res => {
+        return Network.post(urls.getByName('todos', token), CleanTodoProps(todo)).then(res => {
           return dispatch({
             type: types.TODO_ADD,
             todo,
@@ -57,15 +60,19 @@ const
   updateTodo = todo => {
     return (dispatch, getState) => {
       const { auth: { token }} = getState();
-      return handleAttachment(todo).then(attachment => {
-        if(attachment){
-          todo.attachments = attachment.files.filename[0]
+      return dispatch(handleAttachment(todo)).then(({result={}}) => {
+        if(result.files){
+          todo.attachment = result.files.filename[0]
         }
 
-        return Network.patch(`${urls.todos}/${todo.id}?access_token=${token}`, todo).then(res => {
+        if(todo.removeFile){
+          delete todo.attachment
+        }
+
+        return Network.put(`${urls.todos}/${todo.id}?access_token=${token}`, CleanTodoProps(todo)).then(res => {
           return dispatch({
             type: types.TODO_UPDATE,
-            todo
+            res
           })
         })
       })
@@ -78,12 +85,14 @@ const
     }
   },
   handleAttachment = (todo) => {
-      return dispatch => {
-        const {files, attachFile, removeFile} = todo;
+    console.log(todo);
+
+    return dispatch => {
+        const {files, attachFile, removeFile, attachment} = todo;
         return attachFile
           ? dispatch(attachTodoFiles(files))
-          : removeFile
-            ? dispatch(removeTodoFiles(files))
+          : removeFile == true
+            ? dispatch(removeTodoFiles(attachment))
             : Promise.resolve(true)
       }
   },
@@ -97,10 +106,10 @@ const
                })
      }
   },
-  removeTodoFiles = (file) => {
+  removeTodoFiles = (attachment) => {
     return (dispatch, getState) => {
       const { auth: { token }} = getState();
-      return Network.delete(`${urls.upload.replace("CONTAINER_NAME", ContainerName)}/files/${file.name}?access_token=${token}`, body).then(res => {
+      return Network.delete(`${urls.remove.replace("CONTAINER_NAME", ContainerName)}/${attachment.name}?access_token=${token}`, {}).then(res => {
         return res;
       })
     }

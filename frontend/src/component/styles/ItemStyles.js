@@ -30,6 +30,26 @@ const Item = styled.div`
     font-size: 1rem;
     margin: 0 0 1rem;
   }
+  .attachments{
+     position: absolute;
+     right: 1px;
+     top: 1px;
+     a{
+      color: ${props => props.theme.black};
+     }
+     img, svg{
+       max-width: 3rem;
+       max-height: 3rem;
+     }
+     .pin{
+       position: absolute;
+       right: -12px;
+       top: -12px;
+       z-index: 99;  
+       color: ${props => props.theme.red};
+       transform: rotate(45deg);
+     }
+  }
   .buttonList {
     display: grid;
     width: 100%;

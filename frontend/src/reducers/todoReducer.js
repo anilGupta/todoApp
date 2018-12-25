@@ -4,6 +4,8 @@ const
     initialState = {
         items : [],
         loading: false,
+        todoError: false,
+        todoErrorDetails: false
     },
     homeReducer = (state = initialState, action) =>{
         switch (action.type) {
@@ -16,16 +18,16 @@ const
             }
 
             case types.TODO_ADD: {
-              return Object.assign({}, state, { items : [...state.items,  action.todo] });
+              return Object.assign({}, state, { items : [...state.items,  action.res], todoError: false,  todoErrorDetails: false });
             }
 
             case types.TODO_REMOVE: {
-              return Object.assign({}, state, { items : state.items.filter(item => item.id !== action.todo.id) });
+              return Object.assign({}, state, { items : state.items.filter(item => item.id !== action.todo.id), todoError: false,  todoErrorDetails: false });
             }
 
             case types.TODO_UPDATE: {
-               const todos = state.items.map(item => item.id === action.todo.id ? Object.assign({}, item, action.todo) : item);
-               return Object.assign({}, state, { items : todos });
+               const todos = state.items.map(item => item.id === action.res.id ? action.res : item);
+               return Object.assign({}, state, { items : todos, todoError: false,  todoErrorDetails: false });
             }
 
             default:
