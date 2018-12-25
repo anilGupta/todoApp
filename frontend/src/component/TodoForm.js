@@ -24,14 +24,17 @@ class TodoForm extends React.Component {
         files: null,
         attaching: false,
         attachFile: false,
-        removeFile: false
+        removeFile: false,
+        waiting: false
       };
   }
 
 
   handleSubmit(e){
     e.preventDefault();
+    this.setState({ waiting: true})
     this.props.handleSubmit(this.state).then(res => {
+      this.setState({ waiting: false})
       if(!res.error){
         toast(`Todo ${this.state.id ? 'Updated': 'Created'} Successfully`);
         setTimeout(()=> {
@@ -78,7 +81,7 @@ class TodoForm extends React.Component {
 
   render() {
     const { loading, error, errorDetails } = this.props,
-          { id, title, description, files, removeFile, attachment, priorities } = this.state,
+          { id, title, description, files, removeFile, attachment, priorities, waiting } = this.state,
             isValidForm = title && description,
             submitProps = isValidForm ? {} : {disabled: 'disabled', className: 'disabled'},
             label = id ? 'Update': 'Create';
@@ -137,7 +140,10 @@ class TodoForm extends React.Component {
                           )}
                       </Dropzone>
                     }
-                  <button type="submit" {...submitProps} >{label}</button>
+                  {waiting
+                     ? <Spinner inline />
+                     : <button type="submit" {...submitProps} >{label}</button>
+                  }
                 </fieldset>
                 <ToastContainer hideProgressBar={true} />
               </Form>

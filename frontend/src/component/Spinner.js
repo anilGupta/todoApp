@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const SpinnerStyle = styled.div`
     text-align: center;
-    min-height: 60vh;
+    min-height: ${props => props.inline ? '3rem' :  '60vh' };
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,9 +11,9 @@ const SpinnerStyle = styled.div`
 
 
 const
-  Spinner = () => {
+  Spinner = (props) => {
     return (
-      <SpinnerStyle>
+      <SpinnerStyle {...props}>
         <img src="/assets/images/spinner.svg" alt="loading"/>
       </SpinnerStyle>
     )
