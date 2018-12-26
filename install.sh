@@ -11,7 +11,7 @@ echo "
    ----------------- Bundling App -----------------
 
  "
-npm run win-build
+npm run build
 echo "
 
   ----------------- Installing Backend Dependencies -----------------
