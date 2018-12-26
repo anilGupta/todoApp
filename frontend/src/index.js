@@ -8,10 +8,10 @@ import { Provider } from "react-redux";
 import { theme } from './constants/Theme';
 import 'react-toastify/dist/ReactToastify.css';
 
-createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   html {
     box-sizing: border-box;
-    font-size: 10px;
+    //font-size: 15px;
   }
   *, *:before, *:after {
     box-sizing: inherit;
@@ -21,7 +21,7 @@ createGlobalStyle`
     margin: 0;
     font-size: 1em;
     line-height: 2;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif !important;
   }
   a {
     text-decoration: none;
@@ -42,9 +42,12 @@ const render = (Component) => {
   ReactDOM.render(<AppContainer>
           <Provider store={store}>
             <ThemeProvider theme={theme}>
-              <StyledPage>
-                <Component />
-              </StyledPage>
+              <div>
+                <StyledPage>
+                  <Component />
+                </StyledPage>
+                <GlobalStyle/>
+              </div>
             </ThemeProvider>
           </Provider>
       </AppContainer>,document.getElementById('root')

@@ -13,7 +13,9 @@ const
       const { auth: { token }} = getState();
       dispatch(requestTodoList());
       return Network.get(urls.getByName('todos', token)).then(result => {
-           dispatch(receiveTodoList(result))
+           result.error
+              ? dispatch(receiveTodoListError(result.error))
+              : dispatch(receiveTodoList(result));
       })
     }
   },
@@ -26,6 +28,12 @@ const
     return {
       type: types.TODO_LIST_RECEIVE,
       todos
+    }
+  },
+  receiveTodoListError = (error) => {
+    return {
+      type : types.TODO_LIST_RECEIVE_ERROR,
+      error
     }
   },
   createTodo = todo => {

@@ -33,14 +33,16 @@ class SignUp extends Component{
      	 //this.props.initialize();
   	}
 
-
-
   	handleSubmit(e){
      	e.preventDefault();
-      toast("User Created Successfully !! Please Login");
      	this.props.createUser(this.state).then(res => {
-          if(!res.error){
+     	    if(typeof res === 'boolean'){
             toast("User Created Successfully !! Please Login");
+            setTimeout(()=> {
+              this.props.history.push("/")
+            }, 2000)
+          }else{
+            toast("Invalid details please check !!");
           }
       })
   	}
@@ -59,11 +61,13 @@ class SignUp extends Component{
               isValidPassword = password && confirmPassword ?  password === confirmPassword : true,
               isValidForm = email && username && password && confirmPassword && isValidPassword,
               submitProps = isValidForm ? {} : {disabled: 'disabled', className: 'disabled'};
+              //console.log("pros", this.props);
+
 
         return (
             <Columns>
               <Form method="post" onSubmit={this.handleSubmit}>
-                <h2>SIGN UP FOR ACCOUNT</h2>
+                <h2 className='center'>SIGN UP</h2>
                 <fieldset disabled={false} aria-busy={false}>
                  { signupError
                     ? <ul className="error">

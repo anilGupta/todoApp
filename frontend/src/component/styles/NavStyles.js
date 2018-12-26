@@ -48,7 +48,7 @@ const NavStyles = styled.ul`
       transition: width 0.4s;
       transition-timing-function: cubic-bezier(1, -0.65, 0, 2.31);
       left: 50%;
-      margin-top: 1.2rem;
+      margin-top: 1.6rem;
     }
     &:hover,
     &:focus {

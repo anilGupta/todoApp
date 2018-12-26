@@ -16,7 +16,7 @@ const path = require('path'),
 
 module.exports = {
   entry: {
-    main : ['./src/index.js','./src/assets/styles/style.scss'],
+    main : ['./src/index.js'],
     vendor: [
       'react',
       'react-dom',
@@ -24,7 +24,11 @@ module.exports = {
       'react-router-dom',
       'prop-types',
       'redux',
-      'redux-thunk'
+      'redux-thunk',
+      'react-dropzone',
+      'react-toastify',
+      'styled-components',
+      'styled-icons',
     ]
   },
   output: {
@@ -36,9 +40,6 @@ module.exports = {
     loaders: [
       {
         test: /\.(js|jsx)$/, loader: 'babel-loader', exclude: /node_modules/
-      },
-      {
-          test: /\.scss$/, exclude: /node_modules/, use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: [ 'css-loader', { loader: 'sass-loader', query: { sourceMap: false } }, ], }),
       },
       { test: /\.css$/,
         use: [

@@ -65,7 +65,7 @@ class SignIn extends Component{
           return (
               <Columns>
                 <Form method="post" onSubmit={this.handleSubmit}>
-                  <h2>SIGN INTO YOUR ACCOUNT</h2>
+                  <h2 className='center'>SIGN IN</h2>
                   <fieldset disabled={false} aria-busy={false}>
                     { error ? <div className="error"> { error } </div> : null}
                     <label htmlFor="email"> Username/Email

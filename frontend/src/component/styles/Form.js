@@ -28,6 +28,10 @@ const Form = styled.form`
     margin: 0;
     font-family: ${props => props.theme.fontAlt};
     letter-spacing: 1.4px;
+    &.center{
+      text-align: center;
+    }
+ 
   }
   label {
     display: block;
@@ -93,6 +97,7 @@ const Form = styled.form`
      color:  ${props => props.theme.red};
      margin: 0.4rem 0;
      text-align: center;
+     font-weight: 100;
   }
   ul.error{
      margin: 10 0;

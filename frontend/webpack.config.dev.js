@@ -20,7 +20,6 @@ module.exports = {
     'webpack-dev-server/client?http://localhost:9000',
     'webpack/hot/only-dev-server',
     './src/index.js',
-    './src/assets/styles/style.scss'
   ],
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -64,16 +63,6 @@ module.exports = {
       { test: /\.woff?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
-
-      {
-        test: /\.scss$/,
-        use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
-          use: [
-            { loader: "css-loader" },
-            { loader: "sass-loader" }
-          ],
-        }))
-      }
     ],
   },
   resolve: {

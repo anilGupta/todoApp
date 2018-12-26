@@ -29,7 +29,7 @@ const
     },
     checkAuth =  ({username, password})  =>{
         	return dispatch => {
-            	const body = { username, password };
+            	const body =  username.includes("@") ? { email: username, password }: { username, password};
             	return network.post(urls.login, body).then(res => {
             	           const {id=false, user={}} = res;
                          Storage.set("token", id ? id.replace(/"/g, ''): false);

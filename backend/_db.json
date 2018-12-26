@@ -1,0 +1,12 @@
+{
+  "ids": {
+  },
+  "models": {
+    "User": {},
+    "AccessToken": {},
+    "ACL": {},
+    "RoleMapping": {},
+    "Role": {},
+    "Todo": {}
+  }
+}
