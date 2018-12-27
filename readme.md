@@ -45,3 +45,4 @@ $ npm install
 $ node .
 ```
 
+#### open browser with url http://0.0.0.0:3000
