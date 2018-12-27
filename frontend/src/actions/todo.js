@@ -93,8 +93,6 @@ const
     }
   },
   handleAttachment = (todo) => {
-    console.log(todo);
-
     return dispatch => {
         const {files, attachFile, removeFile, attachment} = todo;
         return attachFile

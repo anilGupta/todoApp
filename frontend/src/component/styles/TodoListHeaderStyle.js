@@ -54,6 +54,18 @@ const TodoListHeaderStyle = styled.div`
       }
     }
   }
+  
+  @media (max-width: 767px) {
+      h3{
+        font-size: 1rem;
+        line-height: 42px;
+      }
+      .actions{
+          a{
+           font-size: 10px;
+           padding: 0.6rem;
+       }
+  }
 `;
 
 export default TodoListHeaderStyle;

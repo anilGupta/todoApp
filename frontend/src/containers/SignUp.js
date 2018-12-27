@@ -61,7 +61,6 @@ class SignUp extends Component{
               isValidPassword = password && confirmPassword ?  password === confirmPassword : true,
               isValidForm = email && username && password && confirmPassword && isValidPassword,
               submitProps = isValidForm ? {} : {disabled: 'disabled', className: 'disabled'};
-              //console.log("pros", this.props);
 
 
         return (

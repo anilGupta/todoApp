@@ -74,6 +74,15 @@ const Item = styled.div`
         color:  ${props => props.theme.red};
     }
   }
+  
+  @media (max-width: 767px) {
+     .buttonList{
+        & > * {
+           padding: 0.5rem;
+           letter-spacing: 1.5px;
+        }
+     }
+  }
 `;
 
 export default Item;
