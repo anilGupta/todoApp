@@ -10,6 +10,4 @@ const theme = {
   fontAlt: "'Dosis', sans-serif;",
 };
 
-export {
-  theme
-}
+export { theme };

@@ -3,13 +3,6 @@ import { types } from '../constants/ActionType';
 import network from '../utils/network';
 import urls from '../constants/Urls';
 
+const getDimension = () => {};
 
-const
-	getDimension = () =>{
-  }
-
-
-
-export  {
-  getDimension
-}
+export { getDimension };

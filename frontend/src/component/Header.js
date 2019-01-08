@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import NavStyles from './styles/NavStyles';
-
 
 const Logo = styled.h1`
   font-size: 1rem;
@@ -43,20 +42,19 @@ const StyledHeader = styled.header`
   }
 `;
 
-
 class Header extends React.Component {
-  constructor(props){
-      super(props);
-      this.handleLogout = this.handleLogout.bind(this);
+  constructor(props) {
+    super(props);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
-  handleLogout(e){
-     e.preventDefault();
-     this.props.logout()
+  handleLogout(e) {
+    e.preventDefault();
+    this.props.logout();
   }
 
   render() {
-    const {user} = this.props;
+    const { user } = this.props;
     return (
       <StyledHeader>
         <div className="bar">
@@ -68,7 +66,11 @@ class Header extends React.Component {
           <NavStyles data-test="nav">
             {user && <span>Welcome {user.username}</span>}
             {user && <NavLink to="/">Todos</NavLink>}
-            {user && <NavLink to="#" onClick={this.handleLogout}>Logout</NavLink>}
+            {user && (
+              <NavLink to="#" onClick={this.handleLogout}>
+                Logout
+              </NavLink>
+            )}
             {!user && <NavLink to="/login">Sign In</NavLink>}
             {!user && <NavLink to="/signup">Sign Up</NavLink>}
           </NavStyles>

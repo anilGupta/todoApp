@@ -58,30 +58,29 @@ const NavStyles = styled.ul`
       }
     }
   }
-  
-  span{
-        padding: 0.5rem 2rem;
-        display: flex;
-        align-items: center;
-        position: relative;
-        text-transform: uppercase;
-        font-size: 1rem;
-        background: none;
-        border: 0;
-        color: ${props => props.theme.red};
-        font-weight: 100;
-        font-family:'dosis';
-        letter-spacing: 2px;
-        text-decoration: none;
+
+  span {
+    padding: 0.5rem 2rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+    text-transform: uppercase;
+    font-size: 1rem;
+    background: none;
+    border: 0;
+    color: ${props => props.theme.red};
+    font-weight: 100;
+    font-family: 'dosis';
+    letter-spacing: 2px;
+    text-decoration: none;
   }
-  
+
   @media (max-width: 1300px) {
     border-top: 1px solid ${props => props.theme.lightgrey};
     width: 100%;
     justify-content: center;
     font-size: 1.5rem;
   }
-
 `;
 
 export default NavStyles;

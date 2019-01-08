@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Routes from './routes';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
-import configureStore from "./stores/stores";
+import configureStore from './stores/stores';
 import { AppContainer } from 'react-hot-loader';
-import { Provider } from "react-redux";
+import { Provider } from 'react-redux';
 import { theme } from './constants/Theme';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -30,32 +30,32 @@ const GlobalStyle = createGlobalStyle`
   button {  font-family: 'Open Sans', sans-serif; }
 `;
 
-
 const StyledPage = styled.div`
   background: white;
   color: ${props => props.theme.black};
 `;
 
-
-const store = configureStore();
-const render = (Component) => {
-  ReactDOM.render(<AppContainer>
-          <Provider store={store}>
-            <ThemeProvider theme={theme}>
-              <div>
-                <StyledPage>
-                  <Component />
-                </StyledPage>
-                <GlobalStyle/>
-              </div>
-            </ThemeProvider>
-          </Provider>
-      </AppContainer>,document.getElementById('root')
+const store = configureStore()
+const render = Component => {
+  ReactDOM.render(
+    <AppContainer>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <div>
+            <StyledPage>
+              <Component />
+            </StyledPage>
+            <GlobalStyle />
+          </div>
+        </ThemeProvider>
+      </Provider>
+    </AppContainer>,
+    document.getElementById('root'),
   );
 };
 
 render(Routes);
 
 module.hot.accept('./routes', () => {
-  render(Routes)
+  render(Routes);
 });

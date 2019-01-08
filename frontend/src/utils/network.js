@@ -1,37 +1,32 @@
-const
-  request = (url, options) =>{
-    return new Promise((resolve, reject) => {
+const request = (url, options) =>
+    new Promise((resolve, reject) => {
       if (!url) reject(new Error('URL parameter required'));
       if (!options) reject(new Error('Options parameter required'));
       fetch(url, options)
-        .then(response => {
-            return response.text().then(text =>{
-              try {
-                return text ? JSON.parse(text) : {}
-              } catch (e){
-                return {};
-              }
-            })
-        })
+        .then(response =>
+          response.text().then(text => {
+            try {
+              return text ? JSON.parse(text) : {};
+            } catch (e) {
+              return {};
+            }
+          }),
+        )
         .then(response => {
           if (response.errors) reject(response.errors);
           else resolve(response);
         })
         .catch(res => {
-          reject(res)
+          reject(res);
         });
-    });
-  },
+    }),
   defaultHeaders = {
-    'Accept': 'application/json',
+    Accept: 'application/json',
     'Content-Type': 'application/json',
   },
-  getDefaultHeader = () => {
-    return {
-      headers : Object.assign({}, defaultHeaders)
-    }
-  },
-
+  getDefaultHeader = () => ({
+    headers: Object.assign({}, defaultHeaders),
+  }),
   network = {
     /**
      * @function get
@@ -39,12 +34,8 @@ const
      * @param {string} path
      * @returns {promise}
      */
-    get: (path) => {
-      return request(path, Object.assign(
-        {method: 'GET'},
-        getDefaultHeader()
-      ));
-    },
+    get: path =>
+      request(path, Object.assign({ method: 'GET' }, getDefaultHeader())),
 
     /**
      * @function post
@@ -57,7 +48,7 @@ const
       const options = {
         method: 'POST',
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(body),
@@ -76,7 +67,7 @@ const
       const options = {
         method: 'PUT',
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(body),
@@ -90,11 +81,11 @@ const
      * @param {object} body
      * @returns {promise}
      */
-    patch: (path, body={}) => {
+    patch: (path, body = {}) => {
       const options = {
         method: 'PATCH',
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(body),
@@ -108,11 +99,11 @@ const
      * @param {object} body
      * @returns {promise}
      */
-    delete: (path, body={}) => {
+    delete: (path, body = {}) => {
       const options = {
         method: 'DELETE',
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(body),
@@ -129,10 +120,10 @@ const
     postForm: (path, body) => {
       const options = {
         method: 'POST',
-        body: body,
+        body,
       };
-      return request(path, options)
-    }
-  }
+      return request(path, options);
+    },
+  };
 
 export default network;

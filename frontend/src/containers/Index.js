@@ -5,12 +5,4 @@ import TodoAdd from './TodoAdd';
 import TodoEdit from './TodoEdit';
 import TodoArchives from './TodoArchives';
 
-
-export {
-  SignIn,
-  SignUp,
-  Todo,
-  TodoAdd,
-  TodoArchives,
-  TodoEdit
-}
+export { SignIn, SignUp, Todo, TodoAdd, TodoArchives, TodoEdit };

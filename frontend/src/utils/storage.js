@@ -7,16 +7,15 @@ const isAvailable = (function isAvailableIffe() {
   } catch (e) {
     return false;
   }
-}());
+})();
 
 const Stroage = {
   get(key) {
     if (isAvailable) {
       const val = localStorage.getItem(key);
-      try{
+      try {
         return JSON.parse(val);
-      }
-      catch (error){
+      } catch (error) {
         return val;
       }
     }
@@ -30,12 +29,12 @@ const Stroage = {
     return null;
   },
 
-  delete(key){
+  delete(key) {
     if (isAvailable) {
       localStorage.removeItem(key);
     }
-    return null
-  }
+    return null;
+  },
 };
 
 export default Stroage;

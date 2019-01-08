@@ -7,16 +7,16 @@ const Item = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  opacity: ${props => props.archive ? 0.7: 1};
-  &:hover{
-     opacity: 1;
+  opacity: ${props => (props.archive ? 0.7 : 1)};
+  &:hover {
+    opacity: 1;
   }
   img {
     width: 100%;
     height: 400px;
     object-fit: cover;
   }
-  h3{
+  h3 {
     font-family: ${props => props.theme.fontAlt};
     padding: 0 1rem;
     text-transform: uppercase;
@@ -30,25 +30,26 @@ const Item = styled.div`
     font-size: 1rem;
     margin: 0 0 1rem;
   }
-  .attachments{
-     position: absolute;
-     right: 1px;
-     top: 1px;
-     a{
+  .attachments {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    a {
       color: ${props => props.theme.black};
-     }
-     img, svg{
-       max-width: 3rem;
-       max-height: 3rem;
-     }
-     .pin{
-       position: absolute;
-       right: -12px;
-       top: -12px;
-       z-index: 99;  
-       color: ${props => props.theme.red};
-       transform: rotate(45deg);
-     }
+    }
+    img,
+    svg {
+      max-width: 3rem;
+      max-height: 3rem;
+    }
+    .pin {
+      position: absolute;
+      right: -12px;
+      top: -12px;
+      z-index: 99;
+      color: ${props => props.theme.red};
+      transform: rotate(45deg);
+    }
   }
   .buttonList {
     display: grid;
@@ -65,23 +66,23 @@ const Item = styled.div`
       font-size: 1rem;
       padding: 1rem;
       text-decoration: none;
-      color:  ${props => props.theme.darkgrey};
+      color: ${props => props.theme.darkgrey};
     }
-    svg{
-       padding-bottom: 2px;
+    svg {
+      padding-bottom: 2px;
     }
-    a.danger{
-        color:  ${props => props.theme.red};
+    a.danger {
+      color: ${props => props.theme.red};
     }
   }
-  
+
   @media (max-width: 767px) {
-     .buttonList{
-        & > * {
-           padding: 0.5rem;
-           letter-spacing: 1.5px;
-        }
-     }
+    .buttonList {
+      & > * {
+        padding: 0.5rem;
+        letter-spacing: 1.5px;
+      }
+    }
   }
 `;
 
