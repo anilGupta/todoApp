@@ -1,9 +1,6 @@
 {
   "parser": "babel-eslint",
-  "extends": [
-    "airbnb",
-    "prettier"
-  ],
+  "extends": ["airbnb", "prettier", "prettier/flowtype", "prettier/react"],
   "parserOptions": {
     "ecmaVersion": 7,
     "sourceType": "module",
@@ -11,20 +8,12 @@
       "jsx": true
     }
   },
-  "plugins": [
-    "react",
-    "jsx-a11y",
-    "import",
-    "prettier"
-  ],
+  "plugins": ["react", "jsx-a11y", "import", "prettier"],
   "rules": {
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".js",
-          ".jsx"
-        ]
+        "extensions": [".js", ".jsx"]
       }
     ],
     "react/forbid-prop-types": "off",
