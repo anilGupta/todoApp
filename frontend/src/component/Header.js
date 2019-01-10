@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import NavStyles from './styles/NavStyles';
@@ -42,7 +43,7 @@ const StyledHeader = styled.header`
   }
 `;
 
-class Header extends React.Component {
+class Header extends PureComponent {
   constructor(props) {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
@@ -80,3 +81,8 @@ class Header extends React.Component {
   }
 }
 export default Header;
+
+Header.propTypes = {
+  logout: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+};

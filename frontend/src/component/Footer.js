@@ -1,13 +1,9 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import urls from '../constants/Urls';
+import React from 'react';
 
-const Footer = () => {
-  const year = new Date().getFullYear();
-  return (
-    <footer>
-      <div />
-    </footer>
-  );
-};
+const Footer = () => (
+  <footer>
+    <div />
+  </footer>
+);
+
 export default Footer;

@@ -1,13 +1,19 @@
-import React, { Component } from 'react';
-import { Spinner } from '../component';
-import Form from '../component/styles/Form';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
 import Dropzone from 'react-dropzone';
 import { RemoveCircleOutline } from 'styled-icons/material';
+import { Spinner } from './Index';
+import Form from '../component/styles/Form';
 
 const Priorities = ['Low', 'Medium', 'High'];
 
-class TodoForm extends React.Component {
+class TodoForm extends PureComponent {
+  static defaultProps = {
+    error: undefined,
+    errorDetails: undefined,
+  };
+
   constructor(props) {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
@@ -26,6 +32,30 @@ class TodoForm extends React.Component {
       removeFile: false,
       waiting: false,
     };
+  }
+
+  componentWillMount() {
+    const { data } = this.props;
+    if (data) {
+      this.setState(data);
+    }
+  }
+
+  onCancel() {
+    this.setState({
+      files: null,
+      removeFile: !!this.props.data.attachment,
+      attaching: false,
+      attachFile: false,
+    });
+  }
+
+  onDrop(files) {
+    if (files.length) {
+      this.setState({ files: files[0], attaching: true, attachFile: true });
+    } else {
+      toast(`Please Select valid files types (Images, Text, Word, PDF, Excel)`);
+    }
   }
 
   handleSubmit(e) {
@@ -47,29 +77,6 @@ class TodoForm extends React.Component {
     this.props.logout();
   }
 
-  componentDidMount() {
-    if (this.props.data) {
-      this.setState(this.props.data);
-    }
-  }
-
-  onDrop(files) {
-    if (files.length) {
-      this.setState({ files: files[0], attaching: true, attachFile: true });
-    } else {
-      toast(`Please Select valid files types (Images, Text, Word, PDF, Excel)`);
-    }
-  }
-
-  onCancel() {
-    this.setState({
-      files: null,
-      removeFile: !!this.props.data.attachment,
-      attaching: false,
-      attachFile: false,
-    });
-  }
-
   handleChange(e) {
     const el = e.target;
     this.setState({
@@ -78,22 +85,23 @@ class TodoForm extends React.Component {
   }
 
   render() {
-    const { loading, error, errorDetails } = this.props,
-      {
-        id,
-        title,
-        description,
-        files,
-        removeFile,
-        attachment,
-        priorities,
-        waiting,
-      } = this.state,
-      isValidForm = title && description,
-      submitProps = isValidForm
-        ? {}
-        : { disabled: 'disabled', className: 'disabled' },
-      label = id ? 'Update' : 'Create';
+    const { loading, error, errorDetails } = this.props;
+    const {
+      id,
+      title,
+      description,
+      files,
+      removeFile,
+      attachment,
+      priorities,
+      waiting,
+    } = this.state;
+
+    const isValidForm = title && description;
+    const submitProps = isValidForm
+      ? {}
+      : { disabled: 'disabled', className: 'disabled' };
+    const label = id ? 'Update' : 'Create';
 
     if (loading) {
       return <Spinner />;
@@ -210,3 +218,13 @@ class TodoForm extends React.Component {
   }
 }
 export default TodoForm;
+
+TodoForm.propTypes = {
+  logout: PropTypes.func.isRequired,
+  data: PropTypes.any.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.any,
+  errorDetails: PropTypes.any,
+};
