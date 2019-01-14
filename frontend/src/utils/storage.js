@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const isAvailable = (function isAvailableIffe() {
   const test = 'test';
   try {

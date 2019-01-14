@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
@@ -113,8 +114,8 @@ class TodoForm extends PureComponent {
         <fieldset disabled={false} aria-busy={false}>
           {error ? (
             <ul className="error">
-              {Object.keys(errorDetails).map((err, key) => (
-                <li key={key}>
+              {Object.keys(errorDetails).map(err => (
+                <li key={err.id}>
                   {' '}
                   -- {err} {errorDetails[err]}
                 </li>
@@ -133,7 +134,7 @@ class TodoForm extends PureComponent {
             />
           </label>
 
-          <label htmlFor="email">
+          <label htmlFor="description">
             {' '}
             Description
             <textarea
@@ -144,24 +145,35 @@ class TodoForm extends PureComponent {
             />
           </label>
 
-          <label htmlFor="email">
-            {' '}
-            Priorities
-            <select name="priorities" onChange={this.handleChange}>
-              {Priorities.map(item => {
-                const props =
-                  item === priorities ? { selected: 'selected' } : {};
-                return (
-                  <option value={item} key={item} {...props}>
-                    {item}
-                  </option>
-                );
-              })}
-            </select>
-          </label>
+          {
+            // eslint-disable-next-line jsx-a11y/label-has-for
+            <label htmlFor="priorities">
+              {' '}
+              Priorities
+              <select
+                id="priorities"
+                name="priorities"
+                onChange={this.handleChange}
+              >
+                {Priorities.map(item => {
+                  const props =
+                    item === priorities ? { selected: 'selected' } : {};
+                  return (
+                    <option value={item} key={item} {...props}>
+                      {item}
+                    </option>
+                  );
+                })}
+              </select>
+            </label>
+          }
 
           {attachment && !removeFile ? (
-            <div className="upload-container" onClick={this.onCancel}>
+            <div
+              className="upload-container"
+              onClick={this.onCancel}
+              role="presentation"
+            >
               <p>{attachment.originalFilename}</p>
               <span className="remove-attachment">
                 <RemoveCircleOutline size="24" title="todos" /> Remove
@@ -169,7 +181,11 @@ class TodoForm extends PureComponent {
               </span>
             </div>
           ) : files ? (
-            <div className="upload-container" onClick={this.onCancel}>
+            <div
+              className="upload-container"
+              onClick={this.onCancel}
+              role="presentation"
+            >
               <p>{files.name}</p>
               <span className="remove-attachment">
                 <RemoveCircleOutline size="24" title="todos" /> Remove
@@ -178,8 +194,8 @@ class TodoForm extends PureComponent {
             </div>
           ) : (
             <Dropzone
-              onDrop={this.onDrop.bind(this)}
-              onFileDialogCancel={this.onCancel.bind(this)}
+              onDrop={this.onDrop}
+              onFileDialogCancel={this.onCancel}
               accept={[
                 'image/jpg',
                 'image/jpeg',

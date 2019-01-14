@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { authenticate, initialize } from '../actions/auth';
@@ -16,7 +17,7 @@ import Form from '../component/styles/Form';
       dispatch,
     ),
 )
-class SignIn extends Component {
+class SignIn extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -60,9 +61,9 @@ class SignIn extends Component {
 
   render() {
     const {
-        auth: { error = false },
-      } = this.props,
-      { username, password } = this.state;
+      auth: { error = false },
+    } = this.props;
+    const { username, password } = this.state;
     return (
       <Columns>
         <Form method="post" onSubmit={this.handleSubmit}>
@@ -99,3 +100,9 @@ class SignIn extends Component {
 }
 
 export default SignIn;
+
+SignIn.propTypes = {
+  auth: PropTypes.object.isRequired,
+  initialize: PropTypes.func.isRequired,
+  authenticate: PropTypes.func.isRequired,
+};

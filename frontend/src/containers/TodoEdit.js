@@ -1,14 +1,16 @@
+/* eslint-disable react/jsx-no-bind */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import { ArrowBack, Delete, Archive, Unarchive } from 'styled-icons/material';
 import { fetchTodoListIfNeeded, updateTodo, removeTodo } from '../actions/todo';
-import { Spinner } from '../component';
+import { Spinner } from '../component/Index';
 import TodoListHeaderStyle from '../component/styles/TodoListHeaderStyle';
 import TodoForm from '../component/TodoForm';
 import Columns from '../component/styles/Columns';
-import { ToastContainer, toast } from 'react-toastify';
-import { ArrowBack, Delete, Archive, Unarchive } from 'styled-icons/material';
 
 @connect(
   state => ({ todo: state.todo }),
@@ -25,25 +27,21 @@ import { ArrowBack, Delete, Archive, Unarchive } from 'styled-icons/material';
 class TodoEdit extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      title: '',
-      description: '',
-    };
     this.handleAction = this.handleAction.bind(this);
   }
 
-  fetchData(props) {
-    props.fetchTodoListIfNeeded();
+  componentWillMount() {
+    this.fetchData();
   }
 
-  componentWillMount() {
-    this.fetchData(this.props);
+  fetchData() {
+    this.props.fetchTodoListIfNeeded();
   }
 
   handleAction(todo, action) {
     switch (action) {
       case 'delete':
-        return this.props.removeTodo(todo).then(res => {
+        return this.props.removeTodo(todo).then(() => {
           toast('Todo Removed Successfully');
           setTimeout(() => {
             this.props.history.push('/');
@@ -52,19 +50,20 @@ class TodoEdit extends Component {
       case 'archive':
         return this.props
           .updateTodo(Object.assign({}, todo, { archive: !todo.archive }))
-          .then(res => toast(`Todo ${todo.archive ? 'Restored' : 'Archived'}`));
+          .then(() => toast(`Todo ${todo.archive ? 'Restored' : 'Archived'}`));
+      default:
+        return false;
     }
   }
 
   render() {
     const {
-        todo: { items, loading, todoError = false, todoErrorDetails },
-        match: { params },
-        updateTodo,
-        history,
-      } = this.props,
-      todo = items.find(item => item.id === +params.id),
-      activeTodo = todo || false;
+      todo: { items, loading, todoError = false, todoErrorDetails },
+      match: { params },
+      history,
+    } = this.props;
+    const todo = items.find(item => item.id === +params.id);
+    const activeTodo = todo || false;
     if (loading || !activeTodo) {
       return (
         <div>
@@ -108,7 +107,7 @@ class TodoEdit extends Component {
             errorDetails={todoErrorDetails}
             loading={loading || !activeTodo}
             data={activeTodo}
-            handleSubmit={updateTodo}
+            handleSubmit={this.props.updateTodo}
             history={history}
           />
         </Columns>
@@ -118,3 +117,12 @@ class TodoEdit extends Component {
 }
 
 export default TodoEdit;
+
+TodoEdit.propTypes = {
+  todo: PropTypes.object.isRequired,
+  fetchTodoListIfNeeded: PropTypes.func.isRequired,
+  updateTodo: PropTypes.func.isRequired,
+  removeTodo: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+};

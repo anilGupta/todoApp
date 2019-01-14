@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import PropTypes from 'prop-types';
 
 const loading = keyframes`
   from {
@@ -139,3 +140,7 @@ const Form = styled.form`
 `;
 
 export default Form;
+
+Form.PropTypes = {
+  full: PropTypes.bool.isRequired,
+};

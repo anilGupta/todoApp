@@ -1,5 +1,3 @@
-import { types } from '../constants/ActionType';
-
 const InitialState = {};
 
 export default function(state = InitialState, action) {

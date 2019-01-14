@@ -1,63 +1,57 @@
-import React, { Component } from 'react';
-import { Route, Switch, Redirect  } from 'react-router-dom';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import { BrowserRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { initialize, logout } from '../actions/auth';
-import Wrapper from '../component/styles/Wrapper'
-
-import { SignIn, SignUp, Todo, TodoAdd, TodoEdit, TodoArchives }  from './'
-import { Header, Footer }  from '../component'
-
-const AuthRoute = ({ component: Component, ...rest, authenticated, open }) => (
-  <Route {...rest} render={props => {
-    const from = props.location.pathname;
-    if(from  === '/login' || from  === '/signup'){
-       return authenticated ? <Redirect to={{  pathname: "/",  state: { from: props.location }}}/> : <Component {...props}/>
-    }else{
-       return authenticated ? <Component {...props}/> : <Redirect to={{ pathname: "/login", state: { from: props.location } }}/>
-    }
-  }}/>
-);
-
+import Wrapper from '../component/styles/Wrapper';
+import { Header, Footer, Spinner } from '../component/Index';
+import Routers from '../routes';
 
 @connect(
-  state =>{ return {auth: state.auth, app: state.app}},
-  dispatch => ( bindActionCreators({
-    initialize,
-    logout
-  }, dispatch))
+  state => ({ auth: state.auth, app: state.app }),
+  dispatch =>
+    bindActionCreators(
+      {
+        initialize,
+        logout,
+      },
+      dispatch,
+    ),
 )
-class App extends Component{
+class App extends PureComponent {
+  static defaultProps = {
+    auth: {},
+  };
 
-    componentWillMount(){
-        this.props.initialize();
+  componentWillMount() {
+    this.props.initialize();
+  }
+
+  render() {
+    const {
+      auth: { authenticated, token, user = false },
+    } = this.props;
+    if (authenticated == null) {
+      return <Spinner />;
     }
 
-
-    render(){
-        const {auth: {authenticated, token, user=false}, logout } = this.props;
-        if(authenticated == null){
-            return null
-        }
-
-        return (
-          <div>
-            <Header logout={logout} user={token ? user: false} />
-            <Wrapper>
-              <Switch>
-                <AuthRoute exact path="/" component={Todo} authenticated={authenticated} />
-                <AuthRoute path="/login" component={SignIn} authenticated={authenticated} />
-                <AuthRoute path="/signup" component={SignUp} authenticated={authenticated} />
-                <AuthRoute path="/todo/add" component={TodoAdd} authenticated={authenticated} />
-                <AuthRoute path="/todo/archives" component={TodoArchives} authenticated={authenticated} />
-                <AuthRoute path="/todo/:id/edit" component={TodoEdit} authenticated={authenticated} />
-              </Switch>
-            </Wrapper>
-            <Footer />
-          </div>
-        );
-
-    }
+    return (
+      <BrowserRouter>
+        <Header logout={this.props.logout} user={token ? user : false} />
+        <Wrapper>
+          <Routers authenticated={authenticated} {...this.props} />
+        </Wrapper>
+        <Footer />
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
+
+App.propTypes = {
+  auth: PropTypes.object,
+  logout: PropTypes.func.isRequired,
+  initialize: PropTypes.func.isRequired,
+};

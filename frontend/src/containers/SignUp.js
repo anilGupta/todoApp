@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
 import { createUser } from '../actions/auth';
 import Columns from '../component/styles/Columns';
 import Form from '../component/styles/Form';
-import { ToastContainer, toast } from 'react-toastify';
 
 @connect(
-  state => {
-    return { app: state.app, auth: state.auth };
-  },
+  state => ({ app: state.app, auth: state.auth }),
   dispatch =>
     bindActionCreators(
       {
@@ -18,7 +17,7 @@ import { ToastContainer, toast } from 'react-toastify';
       dispatch,
     ),
 )
-class SignUp extends Component {
+class SignUp extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,10 +29,6 @@ class SignUp extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-  }
-
-  componentWillMount() {
-    // this.props.initialize();
   }
 
   handleSubmit(e) {
@@ -59,16 +54,16 @@ class SignUp extends Component {
 
   render() {
     const {
-        auth: { signupError, signupErrorDetails },
-      } = this.props,
-      { email, username, password, confirmPassword } = this.state,
-      isValidPassword =
-        password && confirmPassword ? password === confirmPassword : true,
-      isValidForm =
-        email && username && password && confirmPassword && isValidPassword,
-      submitProps = isValidForm
-        ? {}
-        : { disabled: 'disabled', className: 'disabled' };
+      auth: { signupError, signupErrorDetails },
+    } = this.props;
+    const { email, username, password, confirmPassword } = this.state;
+    const isValidPassword =
+      password && confirmPassword ? password === confirmPassword : true;
+    const isValidForm =
+      email && username && password && confirmPassword && isValidPassword;
+    const submitProps = isValidForm
+      ? {}
+      : { disabled: 'disabled', className: 'disabled' };
 
     return (
       <Columns>
@@ -77,8 +72,14 @@ class SignUp extends Component {
           <fieldset disabled={false} aria-busy={false}>
             {signupError ? (
               <ul className="error">
-                {Object.keys(signupErrorDetails).map((err, key) => <li key={key}> -- {err} {signupErrorDetails[err]}</li>)}
-                      </ul> : null}
+                {Object.keys(signupErrorDetails).map(err => (
+                  <li key={err}>
+                    {' '}
+                    -- {err} {signupErrorDetails[err]}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
             <label htmlFor="email">
               {' '}
               Username
@@ -142,3 +143,9 @@ class SignUp extends Component {
 }
 
 export default SignUp;
+
+SignUp.propTypes = {
+  auth: PropTypes.object.isRequired,
+  createUser: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+};

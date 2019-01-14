@@ -1,4 +1,4 @@
-import { types } from '../constants/ActionType';
+import types from '../constants/ActionType';
 import Network from '../utils/network';
 import urls from '../constants/Urls';
 

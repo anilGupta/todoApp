@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Routes from './routes';
+import 'react-toastify/dist/ReactToastify.css';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
-import configureStore from './stores/stores';
+import { BrowserRouter } from 'react-router-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
-import { theme } from './constants/Theme';
-import 'react-toastify/dist/ReactToastify.css';
+import configureStore from './stores/stores';
+import Routes from './routes';
+import theme from './constants/Theme';
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -35,7 +36,7 @@ const StyledPage = styled.div`
   color: ${props => props.theme.black};
 `;
 
-const store = configureStore()
+const store = configureStore();
 const render = Component => {
   ReactDOM.render(
     <AppContainer>
@@ -43,7 +44,9 @@ const render = Component => {
         <ThemeProvider theme={theme}>
           <div>
             <StyledPage>
-              <Component />
+              <BrowserRouter>
+                <Component />
+              </BrowserRouter>
             </StyledPage>
             <GlobalStyle />
           </div>

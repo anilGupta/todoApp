@@ -16,4 +16,4 @@ const types = {
   TODO_UPDATE: 'TODO_UPDATE',
 };
 
-export { types };
+export default types;

@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { ArrowBack } from 'styled-icons/material';
 import { createTodo } from '../actions/todo';
-import { Spinner, TodoItem } from '../component';
 import TodoListHeaderStyle from '../component/styles/TodoListHeaderStyle';
 import TodoForm from '../component/TodoForm';
 import Columns from '../component/styles/Columns';
-import { toast } from 'react-toastify';
-import { ArrowBack } from 'styled-icons/material';
 
 @connect(
   state => ({ todo: state.todo }),
@@ -20,25 +19,10 @@ import { ArrowBack } from 'styled-icons/material';
       dispatch,
     ),
 )
-class TodoAdd extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: '',
-      description: '',
-    };
-  }
-
-  fetchData(props) {}
-
-  componentWillMount() {
-    this.fetchData(this.props);
-  }
-
+class TodoAdd extends PureComponent {
   render() {
     const {
-      todo: { todoLoading, todoError = false, todoErrorDetails },
-      createTodo,
+      todo: { todoError = false, todoErrorDetails },
       history,
     } = this.props;
 
@@ -58,7 +42,7 @@ class TodoAdd extends Component {
             error={todoError}
             errorDetails={todoErrorDetails}
             data={{}}
-            handleSubmit={createTodo}
+            handleSubmit={this.props.createTodo}
             history={history}
           />
         </Columns>
@@ -68,3 +52,9 @@ class TodoAdd extends Component {
 }
 
 export default TodoAdd;
+
+TodoAdd.propTypes = {
+  todo: PropTypes.object.isRequired,
+  createTodo: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+};

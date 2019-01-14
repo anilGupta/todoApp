@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
+/* eslint-disable react/jsx-no-bind */
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import { Archive } from 'styled-icons/material';
 import { fetchTodoListIfNeeded, removeTodo, updateTodo } from '../actions/todo';
-import { Spinner, TodoItem } from '../component';
+import { Spinner, TodoItem } from '../component/Index';
 import TodoListHeaderStyle from '../component/styles/TodoListHeaderStyle';
 import Columns from '../component/styles/Columns';
-import { ToastContainer, toast } from 'react-toastify';
-import { Add, Archive } from 'styled-icons/material';
 
 @connect(
   state => ({ todo: state.todo }),
@@ -21,19 +23,18 @@ import { Add, Archive } from 'styled-icons/material';
       dispatch,
     ),
 )
-class TodoArchives extends Component {
+class TodoArchives extends PureComponent {
   constructor(props) {
     super(props);
     this.handleAction = this.handleAction.bind(this);
   }
 
-  fetchData(props) {
-    const { fetchTodoListIfNeeded } = props;
-    fetchTodoListIfNeeded();
+  componentWillMount() {
+    this.fetchData();
   }
 
-  componentWillMount() {
-    this.fetchData(this.props);
+  fetchData() {
+    this.props.fetchTodoListIfNeeded();
   }
 
   handleAction(todo, action) {
@@ -41,11 +42,13 @@ class TodoArchives extends Component {
       case 'delete':
         return this.props
           .removeTodo(todo)
-          .then(res => toast('Todo Removed Successfully'));
+          .then(() => toast('Todo Removed Successfully'));
       case 'archive':
         return this.props
           .updateTodo(Object.assign({}, todo, { archive: !todo.archive }))
-          .then(res => toast(`Todo ${todo.archive ? 'Restored' : 'Archived'}`));
+          .then(() => toast(`Todo ${todo.archive ? 'Restored' : 'Archived'}`));
+      default:
+        return false;
     }
   }
 
@@ -86,3 +89,11 @@ class TodoArchives extends Component {
 }
 
 export default TodoArchives;
+
+TodoArchives.propTypes = {
+  todo: PropTypes.object.isRequired,
+  fetchTodoListIfNeeded: PropTypes.func.isRequired,
+  updateTodo: PropTypes.func.isRequired,
+  removeTodo: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+};

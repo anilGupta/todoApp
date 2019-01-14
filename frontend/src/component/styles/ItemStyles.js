@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-const Item = styled.div`
+const ItemStyles = styled.div`
   background: white;
   border: 1px solid ${props => props.theme.offWhite};
   box-shadow: ${props => props.theme.bs};
@@ -86,4 +87,8 @@ const Item = styled.div`
   }
 `;
 
-export default Item;
+export default ItemStyles;
+
+ItemStyles.PropTypes = {
+  archive: PropTypes.bool.isRequired,
+};
