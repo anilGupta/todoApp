@@ -89,6 +89,6 @@ const ItemStyles = styled.div`
 
 export default ItemStyles;
 
-ItemStyles.PropTypes = {
+ItemStyles.propTypes = {
   archive: PropTypes.bool.isRequired,
 };

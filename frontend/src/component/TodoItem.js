@@ -21,61 +21,69 @@ const TodoItem = ({
   description,
   handleAction,
   attachment,
-}) => (
-  <ItemStyles archive={archive}>
-    <h3>{title}</h3>
-    <p>{description}</p>
-    {attachment ? (
-      <div className="attachments">
-        <a href={`${baseUrl}/Attachments/files/download/${attachment.name}`}>
-          {attachment.type.includes('image') ? (
-            <img
-              src={`${baseUrl}/Attachments/files/download/${attachment.name}`}
-              alt={attachment.name}
-            />
-          ) : attachment.type.includes('excel') ? (
-            <FileExcel size="42" title={attachment.name} />
-          ) : attachment.type.includes('pdf') ? (
-            <FilePdf size="42" title={attachment.name} />
-          ) : attachment.type.includes('word') ? (
-            <FileWord size="42" title={attachment.name} />
+}) => {
+  const [file] = attachment && attachment.length ? attachment : [];
+  return (
+    <ItemStyles archive={archive}>
+      <h3>{title}</h3>
+      <p>{description}</p>
+      {file ? (
+        <div className="attachments">
+          <a href={`${baseUrl}/Attachments/files/download/${file.name}`}>
+            {file.type.includes('image') ? (
+              <img
+                src={`${baseUrl}/Attachments/files/download/${file.name}`}
+                alt={file.name}
+              />
+            ) : attachment.type.includes('excel') ? (
+              <FileExcel size="42" title={file.name} />
+            ) : attachment.type.includes('pdf') ? (
+              <FilePdf size="42" title={file.name} />
+            ) : attachment.type.includes('word') ? (
+              <FileWord size="42" title={file.name} />
+            ) : (
+              <File size="42" title={file.name} />
+            )}
+          </a>
+          <AttachFile size="28" className="pin" />
+        </div>
+      ) : null}
+      <div className="buttonList">
+        <NavLink to={`/todo/${id}/edit`}>
+          <Edit size="18" title="add todos" /> &nbsp;Edit
+        </NavLink>
+        <NavLink to="#" onClick={handleAction.bind(null, 'archive')}>
+          {archive ? (
+            <Archive size="18" title="archive todos" />
           ) : (
-            <File size="42" title={attachment.name} />
+            <Unarchive size="18" title="un-archive todos" />
           )}
-        </a>
-        <AttachFile size="28" className="pin" />
+          &nbsp;{archive ? 'Restore' : 'Archive'}
+        </NavLink>
+        <NavLink
+          to="#"
+          className="danger"
+          onClick={handleAction.bind(null, 'delete')}
+        >
+          <Delete size="18" title="archive todos" /> &nbsp;Delete
+        </NavLink>
       </div>
-    ) : null}
-    <div className="buttonList">
-      <NavLink to={`/todo/${id}/edit`}>
-        <Edit size="18" title="add todos" /> &nbsp;Edit
-      </NavLink>
-      <NavLink to="#" onClick={handleAction.bind(null, 'archive')}>
-        {archive ? (
-          <Archive size="18" title="archive todos" />
-        ) : (
-          <Unarchive size="18" title="un-archive todos" />
-        )}
-        &nbsp;{archive ? 'Restore' : 'Archive'}
-      </NavLink>
-      <NavLink
-        to="#"
-        className="danger"
-        onClick={handleAction.bind(null, 'delete')}
-      >
-        <Delete size="18" title="archive todos" /> &nbsp;Delete
-      </NavLink>
-    </div>
-  </ItemStyles>
-);
+    </ItemStyles>
+  );
+};
 
 export default TodoItem;
 
+TodoItem.defaultProps = {
+  archive: false,
+  attachment: [],
+};
+
 TodoItem.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  archive: PropTypes.string.isRequired,
+  archive: PropTypes.bool,
   description: PropTypes.string.isRequired,
   handleAction: PropTypes.func.isRequired,
-  attachment: PropTypes.func.isRequired,
+  attachment: PropTypes.array,
 };

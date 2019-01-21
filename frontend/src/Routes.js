@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 import {
   SignIn,
   SignUp,
@@ -40,14 +40,14 @@ AuthRoute.propTypes = {
 };
 
 const Routers = props => (
-  <div>
+  <Switch>
     <AuthRoute exact path="/" component={Todo} {...props} />
     <AuthRoute path="/login" component={SignIn} {...props} />
     <AuthRoute path="/signup" component={SignUp} {...props} />
     <AuthRoute path="/todo/add" component={TodoAdd} {...props} />
     <AuthRoute path="/todo/archives" component={TodoArchives} {...props} />
     <AuthRoute path="/todo/:id/edit" component={TodoEdit} {...props} />
-  </div>
+  </Switch>
 );
 
 export default Routers;

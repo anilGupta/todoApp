@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { authenticate, initialize } from '../actions/auth';
@@ -32,7 +32,7 @@ class SignIn extends PureComponent {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.initialize();
   }
 
@@ -100,9 +100,3 @@ class SignIn extends PureComponent {
 }
 
 export default SignIn;
-
-SignIn.propTypes = {
-  auth: PropTypes.object.isRequired,
-  initialize: PropTypes.func.isRequired,
-  authenticate: PropTypes.func.isRequired,
-};

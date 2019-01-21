@@ -17,7 +17,6 @@ class TodoForm extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.handleLogout = this.handleLogout.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onDrop = this.onDrop.bind(this);
@@ -73,11 +72,6 @@ class TodoForm extends PureComponent {
     });
   }
 
-  handleLogout(e) {
-    e.preventDefault();
-    this.props.logout();
-  }
-
   handleChange(e) {
     const el = e.target;
     this.setState({
@@ -99,6 +93,7 @@ class TodoForm extends PureComponent {
     } = this.state;
 
     const isValidForm = title && description;
+    const [file] = attachment && attachment.length ? attachment : [];
     const submitProps = isValidForm
       ? {}
       : { disabled: 'disabled', className: 'disabled' };
@@ -154,27 +149,24 @@ class TodoForm extends PureComponent {
                 id="priorities"
                 name="priorities"
                 onChange={this.handleChange}
+                defaultValue={priorities}
               >
-                {Priorities.map(item => {
-                  const props =
-                    item === priorities ? { selected: 'selected' } : {};
-                  return (
-                    <option value={item} key={item} {...props}>
-                      {item}
-                    </option>
-                  );
-                })}
+                {Priorities.map(item => (
+                  <option value={item} key={item}>
+                    {item}
+                  </option>
+                ))}
               </select>
             </label>
           }
 
-          {attachment && !removeFile ? (
+          {file && !removeFile ? (
             <div
               className="upload-container"
               onClick={this.onCancel}
               role="presentation"
             >
-              <p>{attachment.originalFilename}</p>
+              <p>{file.originalFilename}</p>
               <span className="remove-attachment">
                 <RemoveCircleOutline size="24" title="todos" /> Remove
                 Attachment
@@ -236,7 +228,6 @@ class TodoForm extends PureComponent {
 export default TodoForm;
 
 TodoForm.propTypes = {
-  logout: PropTypes.func.isRequired,
   data: PropTypes.any.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,

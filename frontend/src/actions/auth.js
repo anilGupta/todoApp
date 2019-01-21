@@ -61,6 +61,7 @@ const logout = () => (dispatch, getState) => {
       type: types.AUTH_RESET,
     });
   });
+
   return Promise.resolve(true);
 };
 

@@ -1,6 +1,6 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-no-bind */
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -24,12 +24,16 @@ import Columns from '../component/styles/Columns';
     ),
 )
 class Todo extends PureComponent {
+  static defaultProps = {
+    todo: {},
+  };
+
   constructor(props) {
     super(props);
     this.handleAction = this.handleAction.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fetchData();
   }
 
@@ -92,10 +96,3 @@ class Todo extends PureComponent {
 }
 
 export default Todo;
-
-Todo.propTypes = {
-  todo: PropTypes.object.isRequired,
-  fetchTodoListIfNeeded: PropTypes.func.isRequired,
-  removeTodo: PropTypes.func.isRequired,
-  updateTodo: PropTypes.func.isRequired,
-};

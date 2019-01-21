@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -30,7 +30,7 @@ class TodoEdit extends Component {
     this.handleAction = this.handleAction.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fetchData();
   }
 
@@ -117,12 +117,3 @@ class TodoEdit extends Component {
 }
 
 export default TodoEdit;
-
-TodoEdit.propTypes = {
-  todo: PropTypes.object.isRequired,
-  fetchTodoListIfNeeded: PropTypes.func.isRequired,
-  updateTodo: PropTypes.func.isRequired,
-  removeTodo: PropTypes.func.isRequired,
-  match: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
-};

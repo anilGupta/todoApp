@@ -141,6 +141,6 @@ const Form = styled.form`
 
 export default Form;
 
-Form.PropTypes = {
+Form.propTypes = {
   full: PropTypes.bool.isRequired,
 };

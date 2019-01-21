@@ -2,11 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
-import { BrowserRouter } from 'react-router-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import configureStore from './stores/stores';
-import Routes from './routes';
+import Layout from './Layout';
 import theme from './constants/Theme';
 
 const GlobalStyle = createGlobalStyle`
@@ -44,9 +43,7 @@ const render = Component => {
         <ThemeProvider theme={theme}>
           <div>
             <StyledPage>
-              <BrowserRouter>
-                <Component />
-              </BrowserRouter>
+              <Component />
             </StyledPage>
             <GlobalStyle />
           </div>
@@ -57,8 +54,8 @@ const render = Component => {
   );
 };
 
-render(Routes);
+render(Layout);
 
 module.hot.accept('./routes', () => {
-  render(Routes);
+  render(Layout);
 });

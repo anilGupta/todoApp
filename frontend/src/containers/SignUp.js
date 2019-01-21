@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
@@ -143,9 +143,3 @@ class SignUp extends PureComponent {
 }
 
 export default SignUp;
-
-SignUp.propTypes = {
-  auth: PropTypes.object.isRequired,
-  createUser: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
-};

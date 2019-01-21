@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -52,9 +52,3 @@ class TodoAdd extends PureComponent {
 }
 
 export default TodoAdd;
-
-TodoAdd.propTypes = {
-  todo: PropTypes.object.isRequired,
-  createTodo: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
-};
